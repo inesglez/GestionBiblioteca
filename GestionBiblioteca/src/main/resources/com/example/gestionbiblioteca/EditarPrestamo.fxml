@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="325.0" prefWidth="450.0" stylesheets="@styles/styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.gestionbiblioteca.controller.EditarPrestamoController">
+    <children>
+        <Label layoutX="121.0" layoutY="14.0" text="Detalles Préstamo">
+            <font><Font name="System Bold" size="25.0" /></font>
+        </Label>
+        <DatePicker fx:id="fechaPrestamo" layoutX="23.0" layoutY="77.0" />
+        <Label layoutX="23.0" layoutY="58.0" text="Fecha Préstamo" />
+
+        <DatePicker fx:id="fechaDevolucion" layoutX="205.0" layoutY="77.0" />
+        <Label layoutX="205.0" layoutY="58.0" text="Fecha Devolución" />
+
+        <TextField fx:id="libroPrestado" layoutX="23.0" layoutY="137.0" prefWidth="300.0" />
+        <Label layoutX="23.0" layoutY="119.0" text="Libro" />
+
+        <Button layoutX="296.0" layoutY="288.0" onAction="#botonAceptar" text="Aceptar" />
+        <Button layoutX="366.0" layoutY="288.0" onAction="#botonCancelar" text="Cancelar" />
+    </children>
+</AnchorPane>

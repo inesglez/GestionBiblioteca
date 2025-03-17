@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane prefHeight="600.0" prefWidth="800.0" stylesheets="@styles/styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.biblioteca.controller.BibliotecaController">
+    <children>
+        <TabPane prefHeight="600.0" prefWidth="800.0" tabClosingPolicy="UNAVAILABLE">
+            <tabs>
+                <!-- Libros Nuevos -->
+                <Tab text="Libros Nuevos">
+                    <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="600.0" prefWidth="800.0">
+                            <children>
+                                <!-- Imagen de libro nuevo 1 -->
+                                <ImageView fx:id="imagenNuevo1" fitHeight="250.0" fitWidth="150.0" layoutX="50.0" layoutY="50.0" pickOnBounds="true" preserveRatio="true">
+                                    <image>
+                                        <Image url="@images/libroNuevo1.png" />
+                                    </image>
+                                </ImageView>
+                                <!-- Título y autor de libro nuevo 1 -->
+                                <Text layoutX="69.0" layoutY="229.0" text="Título: En el amor y en la guerra" wrappingWidth="112.55389404296875" />
+                                <Text layoutX="69.0" layoutY="272.0" text="Autor: Ildefonso Falcones" wrappingWidth="103.3226318359375" />
+
+                                <!-- Imagen de libro nuevo 2 -->
+                                <ImageView fx:id="imagenNuevo2" fitHeight="250.0" fitWidth="150.0" layoutX="220.0" layoutY="50.0" pickOnBounds="true" preserveRatio="true">
+                                    <image>
+                                        <Image url="@images/libroNuevo2.png" />
+                                    </image>
+                                </ImageView>
+
+                                <!-- Imagen de libro nuevo 3 -->
+                                <ImageView fx:id="imagenNuevo3" fitHeight="250.0" fitWidth="150.0" layoutX="390.0" layoutY="50.0" pickOnBounds="true" preserveRatio="true">
+                                    <image>
+                                        <Image url="@images/libroNuevo3.png" />
+                                    </image>
+                                </ImageView>
+                                <ImageView fx:id="imagenNuevo11" fitHeight="250.0" fitWidth="150.0" layoutX="563.0" layoutY="50.0" pickOnBounds="true" preserveRatio="true">
+                                    <image>
+                                        <Image url="@images/libroNuevo4.png" />
+                                    </image>
+                                </ImageView>
+                                <ImageView fx:id="imagenNuevo12" fitHeight="250.0" fitWidth="150.0" layoutX="50.0" layoutY="316.0" pickOnBounds="true" preserveRatio="true">
+                                    <image>
+                                        <Image url="@images/libroNuevo5.png" />
+                                    </image>
+                                </ImageView>
+                                <ImageView fx:id="imagenNuevo121" fitHeight="250.0" fitWidth="150.0" layoutX="220.0" layoutY="316.0" pickOnBounds="true" preserveRatio="true">
+                                    <image>
+                                        <Image url="@images/libroNuevo6.png" />
+                                    </image>
+                                </ImageView>
+                                <ImageView fx:id="imagenNuevo122" fitHeight="250.0" fitWidth="150.0" layoutX="390.0" layoutY="316.0" pickOnBounds="true" preserveRatio="true">
+                                    <image>
+                                        <Image url="@images/libroNuevo7.png" />
+                                    </image>
+                                </ImageView>
+                                <ImageView fx:id="imagenNuevo123" fitHeight="250.0" fitWidth="150.0" layoutX="563.0" layoutY="316.0" pickOnBounds="true" preserveRatio="true">
+                                    <image>
+                                        <Image url="@images/libroNuevo8.png" />
+                                    </image>
+                                </ImageView>
+                        <Text layoutX="259.0" layoutY="494.0" text="Título: Libro 1" />
+                        <Text layoutX="257.0" layoutY="518.0" text="Autor: Autor 1" />
+                        <Text layoutX="429.0" layoutY="493.0" text="Título: Libro 1" />
+                        <Text layoutX="602.0" layoutY="493.0" text="Título: Libro 1" />
+                        <Text layoutX="427.0" layoutY="517.0" text="Autor: Autor 1" />
+                        <Text layoutX="600.0" layoutY="517.0" text="Autor: Autor 1" />
+                        <Text layoutX="243.0" layoutY="229.0" text="Título: El plan maestra" wrappingWidth="112.55389404296875" />
+                        <Text layoutX="243.0" layoutY="272.0" text="Autor: Javier Sierra" wrappingWidth="103.3226318359375" />
+                        <Text layoutX="413.0" layoutY="229.0" text="Título: El universo amarillo" wrappingWidth="112.55389404296875" />
+                        <Text layoutX="413.0" layoutY="272.0" text="Autor: Albert Espinosa" wrappingWidth="103.3226318359375" />
+                        <Text layoutX="588.0" layoutY="229.0" text="Título: Una dama desconocida" wrappingWidth="112.55389404296875" />
+                        <Text layoutX="586.0" layoutY="271.0" text="Autor: Carlos del Amor" wrappingWidth="103.3226318359375" />
+                        <Text layoutX="69.0" layoutY="493.0" text="Título: Una dama desconocida" wrappingWidth="112.55389404296875" />
+                        <Text layoutX="69.0" layoutY="535.0" text="Autor: Carlos del Amor" wrappingWidth="103.3226318359375" />
+                            </children>
+                        </AnchorPane>
+                    </content>
+                </Tab>
+
+                <!-- Libros Populares -->
+                <Tab text="Libros Populares">
+                    <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="600.0" prefWidth="800.0">
+                            <children>
+                                <!-- Imagen de libro popular 1 -->
+                                <ImageView fx:id="imagenPopular1" fitHeight="250.0" fitWidth="150.0" layoutX="50.0" layoutY="50.0" pickOnBounds="true" preserveRatio="true">
+                                    <image>
+                                        <Image url="@images/libroPopular1.png" />
+                                    </image>
+                                </ImageView>
+                                <!-- Título y autor de libro popular 1 -->
+                                <Text layoutX="50.0" layoutY="320.0" text="Título: Libro A" />
+                                <Text layoutX="50.0" layoutY="340.0" text="Autor: Autor A" />
+
+                                <!-- Imagen de libro popular 2 -->
+                                <ImageView fx:id="imagenPopular2" fitHeight="250.0" fitWidth="150.0" layoutX="220.0" layoutY="50.0" pickOnBounds="true" preserveRatio="true">
+                                    <image>
+                                        <Image url="@images/libroPopular2.png" />
+                                    </image>
+                                </ImageView>
+                                <!-- Título y autor de libro popular 2 -->
+                                <Text layoutX="220.0" layoutY="320.0" text="Título: Libro B" />
+                                <Text layoutX="220.0" layoutY="340.0" text="Autor: Autor B" />
+
+                                <!-- Imagen de libro popular 3 -->
+                                <ImageView fx:id="imagenPopular3" fitHeight="250.0" fitWidth="150.0" layoutX="390.0" layoutY="50.0" pickOnBounds="true" preserveRatio="true">
+                                    <image>
+                                        <Image url="@images/libroPopular3.png" />
+                                    </image>
+                                </ImageView>
+                                <!-- Título y autor de libro popular 3 -->
+                                <Text layoutX="390.0" layoutY="320.0" text="Título: Libro C" />
+                                <Text layoutX="390.0" layoutY="340.0" text="Autor: Autor C" />
+                            </children>
+                        </AnchorPane>
+                    </content>
+                </Tab>
+
+                <!-- Libros Recomendados -->
+                <Tab text="Libros Recomendados">
+                    <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="600.0" prefWidth="800.0">
+                            <children>
+                                <!-- Imagen de libro recomendado 1 -->
+                                <ImageView fx:id="imagenRecomendado1" fitHeight="250.0" fitWidth="150.0" layoutX="50.0" layoutY="50.0" pickOnBounds="true" preserveRatio="true">
+                                    <image>
+                                        <Image url="@images/libroRecomendado1.jpg" />
+                                    </image>
+                                </ImageView>
+                                <!-- Título y autor de libro recomendado 1 -->
+                                <Text layoutX="50.0" layoutY="320.0" text="Título: Libro X" />
+                                <Text layoutX="50.0" layoutY="340.0" text="Autor: Autor X" />
+
+                                <!-- Imagen de libro recomendado 2 -->
+                                <ImageView fx:id="imagenRecomendado2" fitHeight="250.0" fitWidth="150.0" layoutX="220.0" layoutY="50.0" pickOnBounds="true" preserveRatio="true">
+                                    <image>
+                                        <Image url="@images/libroRecomendado2.jpg" />
+                                    </image>
+                                </ImageView>
+                                <!-- Título y autor de libro recomendado 2 -->
+                                <Text layoutX="220.0" layoutY="320.0" text="Título: Libro Y" />
+                                <Text layoutX="220.0" layoutY="340.0" text="Autor: Autor Y" />
+
+                                <!-- Imagen de libro recomendado 3 -->
+                                <ImageView fx:id="imagenRecomendado3" fitHeight="250.0" fitWidth="150.0" layoutX="390.0" layoutY="50.0" pickOnBounds="true" preserveRatio="true">
+                                    <image>
+                                        <Image url="@images/libroRecomendado3.jpg" />
+                                    </image>
+                                </ImageView>
+                                <!-- Título y autor de libro recomendado 3 -->
+                                <Text layoutX="390.0" layoutY="320.0" text="Título: Libro Z" />
+                                <Text layoutX="390.0" layoutY="340.0" text="Autor: Autor Z" />
+                            </children>
+                        </AnchorPane>
+                    </content>
+                </Tab>
+
+                <!-- Libros Históricos -->
+                <Tab text="Libros Históricos">
+                    <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="600.0" prefWidth="800.0">
+                            <children>
+                                <!-- Imagen de libro histórico 1 -->
+                                <ImageView fx:id="imagenHistorico1" fitHeight="250.0" fitWidth="150.0" layoutX="50.0" layoutY="50.0" pickOnBounds="true" preserveRatio="true">
+                                    <image>
+                                        <Image url="@images/libroHistorico1.jpg" />
+                                    </image>
+                                </ImageView>
+                                <!-- Título y autor de libro histórico 1 -->
+                                <Text layoutX="50.0" layoutY="320.0" text="Título: Historia 1" />
+                                <Text layoutX="50.0" layoutY="340.0" text="Autor: Autor H1" />
+
+                                <!-- Imagen de libro histórico 2 -->
+                                <ImageView fx:id="imagenHistorico2" fitHeight="250.0" fitWidth="150.0" layoutX="220.0" layoutY="50.0" pickOnBounds="true" preserveRatio="true">
+                                    <image>
+                                        <Image url="@images/libroHistorico2.jpg" />
+                                    </image>
+                                </ImageView>
+                                <!-- Título y autor de libro histórico 2 -->
+                                <Text layoutX="220.0" layoutY="320.0" text="Título: Historia 2" />
+                                <Text layoutX="220.0" layoutY="340.0" text="Autor: Autor H2" />
+
+                                <!-- Imagen de libro histórico 3 -->
+                                <ImageView fx:id="imagenHistorico3" fitHeight="250.0" fitWidth="150.0" layoutX="390.0" layoutY="50.0" pickOnBounds="true" preserveRatio="true">
+                                    <image>
+                                        <Image url="@images/libroHistorico3.jpg" />
+                                    </image>
+                                </ImageView>
+                                <!-- Título y autor de libro histórico 3 -->
+                                <Text layoutX="390.0" layoutY="320.0" text="Título: Historia 3" />
+                                <Text layoutX="390.0" layoutY="340.0" text="Autor: Autor H3" />
+                            </children>
+                        </AnchorPane>
+                    </content>
+                </Tab>
+            </tabs>
+        </TabPane>
+    </children>
+</AnchorPane>
