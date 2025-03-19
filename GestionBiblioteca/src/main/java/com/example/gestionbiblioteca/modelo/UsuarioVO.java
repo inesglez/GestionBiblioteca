@@ -1,8 +1,8 @@
-package com.example.gestionbiblioteca.modelo.tablas;
+package com.example.gestionbiblioteca.modelo;
 
 public class UsuarioVO {
 
-    String dni, nombre, apellido, direccion, localidad, provincia;
+    String dni, nombre, apellidos, direccion, localidad, provincia;
 
     // Constructor por defecto vacío
     public UsuarioVO() {
@@ -10,17 +10,17 @@ public class UsuarioVO {
     }
 
     // Constructor con todos los parámetros
-    public UsuarioVO(String dni, String nombre, String apellido, String direccion, String localidad, String provincia) {
+    public UsuarioVO(String dni, String nombre, String apellidos, String direccion, String localidad, String provincia) {
         this.dni = dni;
         this.nombre = nombre;
-        this.apellido = apellido;
+        this.apellidos = apellidos;
         this.direccion = direccion;
         this.localidad = localidad;
         this.provincia = provincia;
     }
 
     // Getters y Setters para DNI
-    public String getDni() {
+    public String getDNI() {
         return dni;
     }
 
@@ -38,12 +38,12 @@ public class UsuarioVO {
     }
 
     // Getters y Setters para apellido
-    public String getApellido() {
-        return apellido;
+    public String getApellidos() {
+        return apellidos;
     }
 
-    public void setApellido(String apellido) {
-        this.apellido = apellido;
+    public void setApellidos(String apellidos) {
+        this.apellidos = apellidos;
     }
 
     // Getters y Setters para direccion
@@ -78,7 +78,7 @@ public class UsuarioVO {
         return "UsuarioVO{" +
                 "dni='" + dni + '\'' +
                 ", nombre='" + nombre + '\'' +
-                ", apellido='" + apellido + '\'' +
+                ", apellidos='" + apellidos + '\'' +
                 ", direccion='" + direccion + '\'' +
                 ", localidad='" + localidad + '\'' +
                 ", provincia='" + provincia + '\'' +

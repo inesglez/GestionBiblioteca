@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.geometry.*?>
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane focusTraversable="true" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.example.gestionbiblioteca.controller.MainController"
+            styleClass="border-pane"
+            stylesheets="@styles/Main.css">
+
+    <!-- Contenedor de la barra superior -->
+    <top>
+        <VBox spacing="5" styleClass="top-vbox" style="-fx-background-color: #2D3E50;">
+            <children>
+                <!-- Menú Dropdown (Opciones) -->
+                <HBox spacing="10" styleClass="menu-hbox">
+                    <children>
+                        <MenuButton text="Usuarios" styleClass="menu-button">
+                            <items>
+                                <MenuItem fx:id="menuAgregarUsuario" text="Agregar Usuario" onAction="#agregarUsuario"/>
+                                <MenuItem fx:id="menuListarUsuarios" text="Listar Usuarios" onAction="#listarUsuarios"/>
+                            </items>
+                        </MenuButton>
+
+                        <MenuButton text="Libros" styleClass="menu-button">
+                            <items>
+                                <MenuItem fx:id="menuAgregarLibro" text="Agregar Libro" onAction="#agregarLibro"/>
+                                <MenuItem fx:id="menuListarLibros" text="Listar Libros" onAction="#listarLibros"/>
+                            </items>
+                        </MenuButton>
+
+                        <MenuButton text="Préstamos" styleClass="menu-button">
+                            <items>
+                                <MenuItem fx:id="menuNuevoPrestamo" text="Nuevo Préstamo" onAction="#nuevoPrestamoModelo"/>
+                                <MenuItem fx:id="menuHistorialPrestamos" text="Historial de Préstamos" onAction="#historialPrestamos"/>
+                            </items>
+                        </MenuButton>
+                    </children>
+                </HBox>
+
+                <!-- Barra con botones -->
+                <HBox spacing="10" styleClass="top-hbox">
+                    <children>
+                        <Label text="Gestión de Biblioteca" textFill="WHITE" HBox.hgrow="ALWAYS" styleClass="top-label">
+                            <HBox.margin>
+                                <Insets left="10.0" top="15.0" />
+                            </HBox.margin>
+                        </Label>
+
+                        <Button fx:id="btnAgregarUsuario" onAction="#agregarUsuario" text="Añadir Usuario" styleClass="button-add">
+                            <HBox.margin>
+                                <Insets top="15.0" />
+                            </HBox.margin>
+                        </Button>
+
+                        <Button fx:id="btnAgregarLibro" onAction="#agregarLibro" text="Añadir Libro" styleClass="button-add">
+                            <HBox.margin>
+                                <Insets top="15.0" />
+                            </HBox.margin>
+                        </Button>
+
+                        <Button fx:id="btnNuevoPrestamo" onAction="#nuevoPrestamoModelo" text="Nuevo Préstamo" styleClass="button-add">
+                            <HBox.margin>
+                                <Insets top="15.0" />
+                            </HBox.margin>
+                        </Button>
+
+                        <Region HBox.hgrow="ALWAYS" />
+
+                        <TextField fx:id="searchField" alignment="TOP_LEFT" promptText="Buscar usuarioModelo o libro..." styleClass="search-field">
+                            <HBox.margin>
+                                <Insets top="15.0" />
+                            </HBox.margin>
+                        </TextField>
+                        <Button fx:id="searchButton" onAction="#buscar" text="Buscar" styleClass="button-search">
+                            <HBox.margin>
+                                <Insets right="10.0" top="15.0" />
+                            </HBox.margin>
+                        </Button>
+                    </children>
+                </HBox>
+            </children>
+        </VBox>
+    </top>
+
+    <!-- Contenido principal -->
+    <center>
+        <ScrollPane fx:id="scrollPane" fitToWidth="true" styleClass="scroll-pane">
+            <content>
+                <VBox fx:id="mainContent" spacing="10" styleClass="content-container">
+                    <!-- Aquí se cargarán los elementos dinámicamente desde el controlador -->
+                </VBox>
+            </content>
+        </ScrollPane>
+    </center>
+</BorderPane>

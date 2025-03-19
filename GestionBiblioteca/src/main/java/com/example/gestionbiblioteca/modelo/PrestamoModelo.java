@@ -1,9 +1,9 @@
-package com.example.gestionbiblioteca.modelo.tablas;
+package com.example.gestionbiblioteca.modelo;
 
 import javafx.beans.property.*;
 import java.time.LocalDate;
 
-public class Prestamo {
+public class PrestamoModelo {
 
     private final IntegerProperty idPrestamo;
     private final StringProperty libroPrestado;
@@ -12,12 +12,12 @@ public class Prestamo {
     private final StringProperty dniCliente;
 
     // Constructor por defecto
-    public Prestamo() {
+    public PrestamoModelo() {
         this(0, null, null, null, null);
     }
 
     // Constructor con algunos datos iniciales
-    public Prestamo(int idPrestamo, String libroPrestado, LocalDate fechaPrestamo, LocalDate fechaDevolucion, String dniCliente) {
+    public PrestamoModelo(int idPrestamo, String libroPrestado, LocalDate fechaPrestamo, LocalDate fechaDevolucion, String dniCliente) {
         this.idPrestamo = new SimpleIntegerProperty(idPrestamo);
         this.libroPrestado = new SimpleStringProperty(libroPrestado);
         this.fechaPrestamo = new SimpleObjectProperty<LocalDate>(fechaPrestamo);

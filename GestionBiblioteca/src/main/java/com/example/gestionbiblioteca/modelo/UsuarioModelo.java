@@ -1,4 +1,4 @@
-package com.example.gestionbiblioteca.modelo.tablas;
+package com.example.gestionbiblioteca.modelo;
 
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
@@ -6,11 +6,11 @@ import javafx.beans.property.StringProperty;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Usuario {
+public class UsuarioModelo {
 
     private final StringProperty dni;
     private final StringProperty nombre;
-    private final StringProperty apellido;
+    private final StringProperty apellidos;
     private final StringProperty direccion;
     private final StringProperty localidad;
     private final StringProperty provincia;
@@ -19,15 +19,15 @@ public class Usuario {
     private final List<PrestamoVO> prestamos;
 
     // Constructor por defecto
-    public Usuario() {
+    public UsuarioModelo() {
         this(null, null, null, null, null, null);
     }
 
     // Constructor con datos iniciales
-    public Usuario(String dni, String nombre, String apellido, String direccion, String localidad, String provincia) {
+    public UsuarioModelo(String dni, String nombre, String apellidos, String direccion, String localidad, String provincia) {
         this.dni = new SimpleStringProperty(dni);
         this.nombre = new SimpleStringProperty(nombre);
-        this.apellido = new SimpleStringProperty(apellido);
+        this.apellidos = new SimpleStringProperty(apellidos);
         this.direccion = new SimpleStringProperty(direccion);
         this.localidad = new SimpleStringProperty(localidad);
         this.provincia = new SimpleStringProperty(provincia);
@@ -88,16 +88,16 @@ public class Usuario {
     }
 
     // Getters y Setters para apellido
-    public String getApellido() {
-        return apellido.get();
+    public String getApellidos() {
+        return apellidos.get();
     }
 
-    public void setApellido(String apellido) {
-        this.apellido.set(apellido);
+    public void setApellidos(String apellidos) {
+        this.apellidos.set(apellidos);
     }
 
-    public StringProperty apellidoProperty() {
-        return apellido;
+    public StringProperty apellidosProperty() {
+        return apellidos;
     }
 
     // Getters y Setters para direccion
@@ -157,7 +157,7 @@ public class Usuario {
         return "Usuario{" +
                 "dni=" + dni +
                 ", nombre=" + nombre +
-                ", apellido=" + apellido +
+                ", apellidos=" + apellidos +
                 ", direccion=" + direccion +
                 ", localidad=" + localidad +
                 ", provincia=" + provincia +

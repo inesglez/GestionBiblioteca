@@ -10,6 +10,8 @@ module com.example.gestionbiblioteca {
     requires org.kordamp.bootstrapfx.core;
     requires eu.hansolo.tilesfx;
     requires com.almasb.fxgl.all;
+    requires jdk.compiler;
+    requires java.sql;
 
     opens com.example.gestionbiblioteca to javafx.fxml;
     exports com.example.gestionbiblioteca;

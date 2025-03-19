@@ -1,4 +1,4 @@
-package com.example.gestionbiblioteca.modelo.tablas;
+package com.example.gestionbiblioteca.modelo;
 
 import java.time.LocalDate;
 
