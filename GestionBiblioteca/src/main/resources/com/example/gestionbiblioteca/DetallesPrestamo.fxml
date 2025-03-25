@@ -40,9 +40,7 @@
 
     <bottom>
         <HBox alignment="CENTER" spacing="20" styleClass="hbox-bottom">
-            <Button text="Editar" fx:id="editButton" onAction="#editarPrestamo" styleClass="button-edit" />
-            <Button text="Eliminar" fx:id="deleteButton" onAction="#eliminarPrestamo" styleClass="button-delete" />
-            <Button text="Cerrar" fx:id="cancelButton" onAction="#cerrar" styleClass="button-cancel" />
+            <Button text="Cerrar" fx:id="cancelButton" onAction="#botonCerrarVentana" styleClass="button-cancel" />
         </HBox>
     </bottom>
 </BorderPane>

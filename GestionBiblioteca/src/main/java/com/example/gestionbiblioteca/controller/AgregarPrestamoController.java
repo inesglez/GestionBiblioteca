@@ -8,7 +8,7 @@ import javafx.stage.Stage;
 import java.sql.SQLException;
 import java.time.LocalDate;
 
-public class EditarPrestamoController {
+public class AgregarPrestamoController {
 
     @FXML
     private DatePicker fechaPrestamo;
@@ -20,30 +20,29 @@ public class EditarPrestamoController {
     private Button botonGuardar;
 
     private PrestamoModelo prestamoModelo = new PrestamoModelo();
-    private PrestamoModelo prestamoSeleccionado;
 
-    public void cargarPrestamo(PrestamoModelo prestamo) {
-        this.prestamoSeleccionado = prestamo;
-        // Cargar los datos del préstamo seleccionado
-        fechaPrestamo.setValue(prestamo.getFechaPrestamo());
-        fechaDevolucion.setValue(prestamo.getFechaDevolucion());
-        libroPrestado.setText(prestamo.getLibro());
+    @FXML
+    private void initialize() {
+        // Inicializa los valores predeterminados si es necesario
     }
 
     @FXML
     private void botonGuardarPrestamo() {
-        // Actualiza los datos del préstamo seleccionado
-        prestamoSeleccionado.setFechaPrestamo(fechaPrestamo.getValue());
-        prestamoSeleccionado.setFechaDevolucion(fechaDevolucion.getValue());
-        prestamoSeleccionado.setLibro(libroPrestado.getText());
+        // Captura los datos del formulario
+        LocalDate fechaPrestamoValor = fechaPrestamo.getValue();
+        LocalDate fechaDevolucionValor = fechaDevolucion.getValue();
+        String libro = libroPrestado.getText();
+
+        // Crear un nuevo préstamo
+        PrestamoModelo nuevoPrestamo = new PrestamoModelo("", fechaPrestamoValor, fechaDevolucionValor, libro);
 
         try {
-            // Llamar al modelo para actualizar el préstamo
-            prestamoModelo.editarPrestamo(prestamoSeleccionado);
-            mostrarAlerta("Éxito", "Préstamo actualizado correctamente.");
+            // Llamar al modelo para añadir el nuevo préstamo
+            prestamoModelo.anadirPrestamo(nuevoPrestamo);
+            mostrarAlerta("Éxito", "Préstamo añadido correctamente.");
             cerrarVentana();
         } catch (SQLException e) {
-            mostrarAlerta("Error", "No se pudo actualizar el préstamo: " + e.getMessage());
+            mostrarAlerta("Error", "No se pudo añadir el préstamo: " + e.getMessage());
         }
     }
 

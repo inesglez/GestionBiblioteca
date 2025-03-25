@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="300.0" prefWidth="400.0" stylesheets="@styles/stylesUsuario.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.gestionbiblioteca.controller.EliminarUsuarioController">
+    <children>
+        <Label layoutX="90.0" layoutY="41.0" text="Eliminar Usuario">
+            <font>
+                <Font name="System Bold" size="25.0" />
+            </font>
+        </Label>
+
+        <Label layoutX="90.0" layoutY="118.0" text="Ingrese el DNI del Usuario a eliminar:" />
+        <TextField fx:id="ponerId" layoutX="90.0" layoutY="150.0" prefWidth="220.0" />
+
+        <HBox layoutX="90.0" layoutY="220.0" spacing="10" />
+         <Button layoutX="216.0" layoutY="215.0" onAction="#botonCancelar" text="Cancelar" />
+         <Button layoutX="131.0" layoutY="215.0" onAction="#botonEliminar" text="Eliminar" />
+    </children>
+</AnchorPane>

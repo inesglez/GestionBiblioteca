@@ -62,7 +62,7 @@ public class UsuarioModelo {
     public void mostrarPrestamos() {
         for (PrestamoVO prestamo : prestamos) {
             System.out.println("ID Préstamo: " + prestamo.getIdPrestamo());
-            System.out.println("DNI Usuario: " + prestamo.getDniCliente());
+            System.out.println("DNI Usuario: " + prestamo.getDniUsuario());
             System.out.println("Fecha Préstamo: " + prestamo.getFechaPrestamo());
             System.out.println("Fecha Devolución: " + prestamo.getFechaDevolucion());
             System.out.println("Libro Prestado: " + prestamo.getLibroPrestado());

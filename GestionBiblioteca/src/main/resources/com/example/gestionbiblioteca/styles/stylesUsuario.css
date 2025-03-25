@@ -1,0 +1,246 @@
+/* General */
+.border-pane {
+    -fx-background-color: #F7F9FB;
+}
+
+.top-hbox, .menu-hbox {
+    -fx-background-color: #2C3E50;
+    -fx-padding: 10;
+}
+
+.top-label {
+    -fx-font-size: 20px;
+    -fx-text-fill: WHITE;
+    -fx-font-weight: bold;
+}
+
+.button-add, .button-edit, .button-delete, .button-reservas, .button-search {
+    -fx-text-fill: WHITE;
+    -fx-border-radius: 5;
+    -fx-padding: 10 20;
+    -fx-font-size: 14px;
+}
+
+.button-add {
+    -fx-background-color: #1ABC9C;
+    -fx-effect: dropshadow(gaussian, #1ABC9C, 10, 0.8, 0, 2);
+}
+.button-add:hover {
+    -fx-background-color: #16A085;
+    -fx-effect: dropshadow(gaussian, #16A085, 10, 0.8, 0, 2);
+}
+
+.button-edit {
+    -fx-background-color: #F39C12;
+    -fx-effect: dropshadow(gaussian, #F39C12, 10, 0.8, 0, 2);
+}
+.button-edit:hover {
+    -fx-background-color: #E67E22;
+    -fx-effect: dropshadow(gaussian, #E67E22, 10, 0.8, 0, 2);
+}
+
+.button-delete {
+    -fx-background-color: #E74C3C;
+    -fx-effect: dropshadow(gaussian, #E74C3C, 10, 0.8, 0, 2);
+}
+.button-delete:hover {
+    -fx-background-color: #C0392B;
+    -fx-effect: dropshadow(gaussian, #C0392B, 10, 0.8, 0, 2);
+}
+
+.button-reservas {
+    -fx-background-color: #2980B9;
+    -fx-effect: dropshadow(gaussian, #2980B9, 10, 0.8, 0, 2);
+}
+.button-reservas:hover {
+    -fx-background-color: #3498DB;
+    -fx-effect: dropshadow(gaussian, #3498DB, 10, 0.8, 0, 2);
+}
+
+.button-search {
+    -fx-background-color: #8E44AD;
+    -fx-effect: dropshadow(gaussian, #8E44AD, 10, 0.8, 0, 2);
+}
+.button-search:hover {
+    -fx-background-color: #9B59B6;
+    -fx-effect: dropshadow(gaussian, #9B59B6, 10, 0.8, 0, 2);
+}
+
+.search-field {
+    -fx-background-color: #FFFFFF;
+    -fx-text-fill: #34495E;
+    -fx-padding: 8;
+    -fx-border-radius: 8;
+    -fx-border-color: #BDC3C7;
+    -fx-font-size: 14px;
+    -fx-effect: dropshadow(gaussian, #BDC3C7, 8, 0.8, 0, 2);
+}
+
+.search-field:focused {
+    -fx-border-color: #1ABC9C;
+}
+
+/* Menú desplegable */
+.menu-button {
+    -fx-background-color: #34495E;
+    -fx-text-fill: WHITE;
+    -fx-border-radius: 5;
+    -fx-padding: 10;
+    -fx-border-width: 0;
+    -fx-border-color: #34495E;
+    -fx-effect: dropshadow(gaussian, #34495E, 10, 0.8, 0, 2);
+}
+
+.menu-button .label {
+    -fx-text-fill: WHITE;
+}
+
+.menu-item {
+    -fx-background-color: #34495E;
+    -fx-text-fill: WHITE;
+    -fx-padding: 10 20;
+    -fx-border-color: #34495E;
+    -fx-border-width: 0;
+    -fx-border-radius: 5;
+}
+
+.menu-item:hover {
+    -fx-background-color: #1ABC9C;
+    -fx-text-fill: WHITE;
+    -fx-border-color: #1ABC9C;
+}
+
+.scroll-pane {
+    -fx-background-color: #F7F9FB;
+}
+
+.context-menu {
+    -fx-background-color: #34495E;
+}
+
+/* Estilo para las etiquetas */
+.Label {
+    -fx-font-size: 16px;
+    -fx-text-fill: #34495E;
+    -fx-font-weight: bold;
+}
+
+/* Formulario Crear/Editar Usuario */
+.AnchorPane {
+    -fx-background-color: #ECF0F1;
+    -fx-padding: 30px;
+    -fx-border-radius: 10;
+    -fx-effect: dropshadow(gaussian, #BDC3C7, 10, 0.8, 0, 10);
+}
+
+.Label {
+    -fx-font-size: 14px;
+    -fx-text-fill: #34495E;
+    -fx-font-weight: bold;
+}
+
+.TextField {
+    -fx-background-color: #FFFFFF;
+    -fx-border-color: #BDC3C7;
+    -fx-border-radius: 8;
+    -fx-padding: 10;
+    -fx-font-size: 14px;
+    -fx-effect: dropshadow(gaussian, #BDC3C7, 8, 0.8, 0, 2);
+}
+
+.TextField:focused {
+    -fx-border-color: #1ABC9C;
+}
+
+/* Botones */
+.Button {
+    -fx-border-radius: 5;
+    -fx-padding: 12 24;
+    -fx-font-size: 16px;
+    -fx-text-fill: WHITE;
+    -fx-background-color: #27AE60;
+    -fx-effect: dropshadow(gaussian, #27AE60, 8, 0.8, 0, 2);
+    -fx-font-weight: bold;
+    -fx-cursor: hand;
+    -fx-background-radius: 10;
+}
+
+.Button:hover {
+    -fx-background-color: #2ECC71;
+}
+
+.Button:disabled {
+    -fx-background-color: #BDC3C7;
+}
+
+.HBox {
+    -fx-alignment: center-right;
+    -fx-spacing: 10;
+}
+
+.Button-cancelar {
+    -fx-background-color: #C0392B;
+    -fx-border-radius: 5;
+    -fx-font-size: 16px;
+    -fx-padding: 12 24;
+}
+
+.Button-cancelar:hover {
+    -fx-background-color: #E74C3C;
+}
+
+.Button-guardar {
+    -fx-background-color: #2980B9;
+    -fx-border-radius: 5;
+    -fx-font-size: 16px;
+    -fx-padding: 12 24;
+}
+
+.Button-guardar:hover {
+    -fx-background-color: #3498DB;
+}
+
+/* Formulario Eliminar Usuario */
+.AnchorPane.eliminar {
+    -fx-background-color: #F5F7FA;
+}
+
+.Label.eliminar {
+    -fx-text-fill: #34495E;
+    -fx-font-weight: bold;
+    -fx-font-size: 20px;
+}
+
+.TextField.eliminar {
+    -fx-background-color: #FFFFFF;
+    -fx-border-color: #BDC3C7;
+    -fx-border-radius: 8;
+    -fx-padding: 10;
+    -fx-font-size: 14px;
+    -fx-effect: dropshadow(gaussian, #BDC3C7, 8, 0.8, 0, 2);
+}
+
+.Button-eliminar {
+    -fx-border-radius: 5;
+    -fx-padding: 12 24;
+    -fx-font-size: 16px;
+    -fx-text-fill: WHITE;
+    -fx-background-color: #E74C3C;
+    -fx-cursor: hand;
+}
+
+.Button-eliminar:hover {
+    -fx-background-color: #C0392B;
+}
+
+.Button-cancelar-eliminar {
+    -fx-border-radius: 5;
+    -fx-padding: 12 24;
+    -fx-font-size: 16px;
+    -fx-text-fill: WHITE;
+    -fx-background-color: #BDC3C7;
+}
+
+.Button-cancelar-eliminar:hover {
+    -fx-background-color: #95A5A6;
+}

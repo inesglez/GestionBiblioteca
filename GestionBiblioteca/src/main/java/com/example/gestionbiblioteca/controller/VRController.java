@@ -1,15 +1,23 @@
 package com.example.gestionbiblioteca.controller;
 
 import com.example.gestionbiblioteca.Main;
-import com.example.gestionbiblioteca.modelo.ExcepcionBiblioteca;
 import com.example.gestionbiblioteca.modelo.PrestamoModelo;
+import com.example.gestionbiblioteca.modelo.repository.impl.Conexion;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.layout.Region;
+import javafx.stage.Stage;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 
+import java.io.IOException;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.util.ArrayList;
+import java.util.List;
 
 public class VRController {
 
@@ -19,7 +27,6 @@ public class VRController {
     private TableColumn<PrestamoModelo, String> columnaCodigo;
     @FXML
     private TableColumn<PrestamoModelo, String> columnaFechaPrestamo;
-
     @FXML
     private DatePicker fechaPrestamo;
     @FXML
@@ -28,17 +35,13 @@ public class VRController {
     private TextField libroPrestado;
 
     private Main main;
-    private PrestamoModelo prestamoModelo;
+    private PrestamoModelo prestamoModelo = new PrestamoModelo();
     private ObservableList<PrestamoModelo> prestamoModeloData = FXCollections.observableArrayList();
     private String dniUsuarioSeleccionado;
 
-    public void setBibliotecaModelo(PrestamoModelo prestamoModelo) throws ExcepcionBiblioteca {
-        this.prestamoModelo = prestamoModelo;
-        cargarDatosPrestamos();
-    }
-
     public void setMain(Main main) {
         this.main = main;
+        cargarDatosPrestamos();
     }
 
     public String getDniUsuarioSeleccionado() {
@@ -50,48 +53,29 @@ public class VRController {
         columnaCodigo.setCellValueFactory(cellData -> cellData.getValue().idPrestamoProperty().asString());
         columnaFechaPrestamo.setCellValueFactory(cellData -> cellData.getValue().fechaPrestamoProperty().asString());
         tablaPrestamos.setItems(prestamoModeloData);
-
-        tablaPrestamos.getSelectionModel().selectedItemProperty().addListener(
-                (observable, oldValue, newValue) -> mostrarDatosPrestamo(newValue));
     }
 
     private void cargarDatosPrestamos() {
         try {
-            ArrayList<PrestamoModelo> listaPrestamoModelos = prestamoModelo.obtenerListaPrestamos();
-            prestamoModeloData.setAll(listaPrestamoModelos);
-        } catch (ExcepcionBiblioteca | SQLException e) {
+            List<PrestamoModelo> listaPrestamos = prestamoModelo.obtenerListaPrestamos();
+            prestamoModeloData.setAll(listaPrestamos);
+        } catch (SQLException e) {
             mostrarAlerta("Error", "No se pudieron cargar los préstamos: " + e.getMessage());
-        }
-    }
-
-    private void mostrarDatosPrestamo(PrestamoModelo prestamoModelo) {
-        if (prestamoModelo != null) {
-            fechaPrestamo.setValue(prestamoModelo.getFechaPrestamo());
-            fechaDevolucion.setValue(prestamoModelo.getFechaDevolucion());
-            libroPrestado.setText(prestamoModelo.getLibro());
-        } else {
-            fechaPrestamo.setValue(null);
-            fechaDevolucion.setValue(null);
-            libroPrestado.setText("");
         }
     }
 
     @FXML
     private void botonNuevoPrestamo() {
-        PrestamoModelo nuevoPrestamoModelo = new PrestamoModelo();
-        nuevoPrestamoModelo.setDniUsuario(dniUsuarioSeleccionado);
-        nuevoPrestamoModelo.setFechaPrestamo(fechaPrestamo.getValue());
-        nuevoPrestamoModelo.setFechaDevolucion(fechaDevolucion.getValue());
-        nuevoPrestamoModelo.setLibro(libroPrestado.getText());
-
-        boolean okClicked = main.pantallaEditarCrearPrestamo(nuevoPrestamoModelo);
-        if (okClicked) {
-            try {
-                prestamoModelo.anadirPrestamo(nuevoPrestamoModelo);
-                prestamoModeloData.add(nuevoPrestamoModelo);
-            } catch (ExcepcionBiblioteca e) {
-                mostrarAlerta("Error", "No se pudo añadir el préstamo: " + e.getMessage());
-            }
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/gestionbiblioteca/view/agregarPrestamo.fxml"));
+            Parent root = loader.load();
+            Scene scene = new Scene(root);
+            Stage stage = new Stage();
+            stage.setScene(scene);
+            stage.setTitle("Nuevo Préstamo");
+            stage.show();
+        } catch (IOException e) {
+            mostrarAlerta("Error", "No se pudo abrir la ventana de nuevo préstamo: " + e.getMessage());
         }
     }
 
@@ -99,18 +83,18 @@ public class VRController {
     private void botonEditarPrestamo() {
         PrestamoModelo seleccionado = tablaPrestamos.getSelectionModel().getSelectedItem();
         if (seleccionado != null) {
-            seleccionado.setFechaPrestamo(fechaPrestamo.getValue());
-            seleccionado.setFechaDevolucion(fechaDevolucion.getValue());
-            seleccionado.setLibro(libroPrestado.getText());
-
-            boolean okClicked = main.pantallaEditarCrearPrestamo(seleccionado);
-            if (okClicked) {
-                try {
-                    prestamoModelo.editarPrestamo(seleccionado);
-                    mostrarDatosPrestamo(seleccionado);
-                } catch (ExcepcionBiblioteca e) {
-                    mostrarAlerta("Error", "No se pudo actualizar el préstamo: " + e.getMessage());
-                }
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/gestionbiblioteca/view/editarPrestamo.fxml"));
+                Parent root = loader.load();
+                EditarPrestamoController controller = loader.getController();
+                controller.cargarPrestamo(seleccionado);  // Enviar el préstamo seleccionado
+                Scene scene = new Scene(root);
+                Stage stage = new Stage();
+                stage.setScene(scene);
+                stage.setTitle("Editar Préstamo");
+                stage.show();
+            } catch (IOException e) {
+                mostrarAlerta("Error", "No se pudo abrir la ventana de editar préstamo: " + e.getMessage());
             }
         } else {
             mostrarAlerta("Error", "Seleccione un préstamo para editar.");
@@ -122,10 +106,17 @@ public class VRController {
         PrestamoModelo seleccionado = tablaPrestamos.getSelectionModel().getSelectedItem();
         if (seleccionado != null) {
             try {
-                prestamoModelo.eliminarPrestamo(seleccionado.getIdPrestamo());
-                prestamoModeloData.remove(seleccionado);
-            } catch (ExcepcionBiblioteca e) {
-                mostrarAlerta("Error", "No se pudo eliminar el préstamo: " + e.getMessage());
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/gestionbiblioteca/view/eliminarPrestamo.fxml"));
+                Parent root = loader.load();
+                EliminarPrestamoController controller = loader.getController();
+                controller.cargarPrestamo(seleccionado);  // Enviar el préstamo seleccionado
+                Scene scene = new Scene(root);
+                Stage stage = new Stage();
+                stage.setScene(scene);
+                stage.setTitle("Eliminar Préstamo");
+                stage.show();
+            } catch (IOException e) {
+                mostrarAlerta("Error", "No se pudo abrir la ventana de eliminar préstamo: " + e.getMessage());
             }
         } else {
             mostrarAlerta("Error", "Seleccione un préstamo para eliminar.");
@@ -138,5 +129,19 @@ public class VRController {
         alert.setHeaderText(null);
         alert.setContentText(mensaje);
         alert.showAndWait();
+    }
+
+    public void eliminarTarjetasPrestamo(int idPrestamo) {
+        // Usamos la clase Conexion para obtener la conexión
+        try (Connection conn = new Conexion().conectarBD()) {
+            String sql = "DELETE FROM tarjetas WHERE idPrestamo = ?";
+            try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+                stmt.setInt(1, idPrestamo);
+                stmt.executeUpdate();
+            }
+        } catch (SQLException e) {
+            mostrarAlerta("Error", "No se pudieron eliminar las tarjetas asociadas al préstamo: " + e.getMessage());
+            e.printStackTrace();
+        }
     }
 }

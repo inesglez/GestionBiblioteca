@@ -1,18 +1,15 @@
 package com.example.gestionbiblioteca.controller;
 
-import com.example.gestionbiblioteca.Main;
-import com.example.gestionbiblioteca.modelo.ExcepcionBiblioteca;
-import com.example.gestionbiblioteca.modelo.PrestamoModelo;
 import com.example.gestionbiblioteca.modelo.UsuarioModelo;
-import com.example.gestionbiblioteca.modelo.repository.ExceptionPrestamo;
+import com.example.gestionbiblioteca.modelo.UsuarioVO;
+import com.example.gestionbiblioteca.modelo.repository.impl.UsuarioRepositoryImpl;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.stage.Stage;
 
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.Comparator;
+import java.util.List;
 
 public class VPController {
 
@@ -21,158 +18,181 @@ public class VPController {
     @FXML
     private TableColumn<UsuarioModelo, String> columnaNombre;
     @FXML
-    private TableColumn<UsuarioModelo, String> columnaApellidos;
+    private TableColumn<UsuarioModelo, String> columnaApellido;
 
     @FXML
     private TextField ponerId;
     @FXML
     private TextField ponerNombre;
     @FXML
-    private TextField ponerApellidos;
+    private TextField ponerApellido;
     @FXML
     private TextField ponerDireccion;
     @FXML
     private TextField ponerLocalidad;
     @FXML
     private TextField ponerProvincia;
+
     @FXML
-    private TextField buscarDni;
+    private Button botonNuevoUsuario;
+    @FXML
+    private Button botonEditarUsuario;
+    @FXML
+    private Button botonEliminarUsuario;
 
-    private Main main;
-    private PrestamoModelo prestamoModelo;
-    private ObservableList<UsuarioModelo> usuarioModeloData = FXCollections.observableArrayList();
+    private ObservableList<UsuarioModelo> listaUsuarios;
+    private final UsuarioRepositoryImpl usuarioRepository = new UsuarioRepositoryImpl();
+    private Stage ventana;
 
-    public void setBibliotecaModelo(PrestamoModelo prestamoModelo) throws ExceptionPrestamo {
-        this.prestamoModelo = prestamoModelo;
+    public void setVentana(Stage ventana) {
+        this.ventana = ventana;
     }
 
-    public void setMain(Main main) {
-        tablaUsuarios.setItems(main.getUsuarioData());
-        this.main = main;
+    @FXML
+    public void initialize() {
+        // Inicializar las columnas de la tabla
+        columnaNombre.setCellValueFactory(cellData -> cellData.getValue().nombreProperty());
+        columnaApellido.setCellValueFactory(cellData -> cellData.getValue().apellidosProperty());
+
+        // Cargar los usuarios
+        cargarUsuarios();
     }
 
-    private void mostrarDatosUsuario(UsuarioModelo usuarioModelo) {
-        if (usuarioModelo != null) {
-            ponerId.setText(usuarioModelo.getDni());
-            ponerNombre.setText(usuarioModelo.getNombre());
-            ponerApellidos.setText(usuarioModelo.getApellidos());
-            ponerDireccion.setText(usuarioModelo.getDireccion());
-            ponerLocalidad.setText(usuarioModelo.getLocalidad());
-            ponerProvincia.setText(usuarioModelo.getProvincia());
-        } else {
-            ponerId.setText("");
-            ponerNombre.setText("");
-            ponerApellidos.setText("");
-            ponerDireccion.setText("");
-            ponerLocalidad.setText("");
-            ponerProvincia.setText("");
+    private void cargarUsuarios() {
+        listaUsuarios = FXCollections.observableArrayList();
+
+        try {
+            // Cargar todos los usuarios desde el repositorio
+            List<UsuarioVO> usuarios = usuarioRepository.ObtenerListaUsuarios();
+            for (UsuarioVO usuario : usuarios) {
+                listaUsuarios.add(new UsuarioModelo(usuario.getDNI(), usuario.getNombre(), usuario.getApellidos(),
+                        usuario.getDireccion(), usuario.getLocalidad(), usuario.getProvincia()));
+            }
+
+            // Establecer los datos en la tabla
+            tablaUsuarios.setItems(listaUsuarios);
+        } catch (Exception e) {
+            mostrarAlerta("Error", "No se pudo cargar la lista de usuarios.");
         }
     }
 
     @FXML
-    private void initialize() {
-        columnaNombre.setCellValueFactory(cellData -> cellData.getValue().nombreProperty());
-        columnaApellidos.setCellValueFactory(cellData -> cellData.getValue().apellidosProperty());
-        tablaUsuarios.getSelectionModel().selectedItemProperty().addListener(
-                (observable, oldValue, newValue) -> mostrarDatosUsuario(newValue));
-    }
-
-    private void cargarDatosUsuarios() throws ExceptionPrestamo, SQLException {
-        ArrayList<UsuarioModelo> listaUsuarioModelos = prestamoModelo.obtenerListaUsuarios();
-        usuarioModeloData.setAll(listaUsuarioModelos);
-        usuarioModeloData.sort(Comparator.comparing(UsuarioModelo::getApellidos));
-        tablaUsuarios.setItems(usuarioModeloData);
-    }
-
-    private void mostrarAlerta(String titulo, String mensaje) {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle(titulo);
-        alert.setHeaderText(null);
-        alert.setContentText(mensaje);
-        alert.showAndWait();
-    }
-
-    @FXML
     private void botonNuevoUsuario() {
-        UsuarioModelo usuarioModelo = new UsuarioModelo();
-        usuarioModelo.setDni(ponerId.getText());
-        usuarioModelo.setNombre(ponerNombre.getText());
-        usuarioModelo.setApellidos(ponerApellidos.getText());
-        usuarioModelo.setDireccion(ponerDireccion.getText());
-        usuarioModelo.setLocalidad(ponerLocalidad.getText());
-        usuarioModelo.setProvincia(ponerProvincia.getText());
+        // Obtener los datos del formulario
+        String dni = ponerId.getText();
+        String nombre = ponerNombre.getText();
+        String apellidos = ponerApellido.getText();
+        String direccion = ponerDireccion.getText();
+        String localidad = ponerLocalidad.getText();
+        String provincia = ponerProvincia.getText();
 
-        boolean okClicked = main.pantallaCrearUsuario(usuarioModelo);
-        if (okClicked) {
-            try {
-                prestamoModelo.anadirUsuario(usuarioModelo);
-                main.getUsuarioData().add(usuarioModelo);
-                cargarDatosUsuarios();
-            } catch (ExceptionPrestamo| SQLException e) {
-                mostrarAlerta("Error", "No se puede conectar con la base de datos para añadir el usuario");
-            }
+        // Validar que los campos no estén vacíos
+        if (dni.isEmpty() || nombre.isEmpty() || apellidos.isEmpty() || direccion.isEmpty() || localidad.isEmpty() || provincia.isEmpty()) {
+            mostrarAlerta("Error", "Por favor, complete todos los campos.");
+            return;
+        }
+
+        try {
+            // Crear el objeto UsuarioVO y agregarlo al repositorio
+            UsuarioVO nuevoUsuario = new UsuarioVO(dni, nombre, apellidos, direccion, localidad, provincia);
+            usuarioRepository.addUsuario(nuevoUsuario);
+
+            // Actualizar la lista de usuarios y refrescar la tabla
+            cargarUsuarios();
+
+            // Limpiar los campos de entrada
+            limpiarCampos();
+
+        } catch (Exception e) {
+            mostrarAlerta("Error", "No se pudo agregar el usuario.");
         }
     }
 
     @FXML
     private void botonEditarUsuario() {
-        UsuarioModelo usuarioModeloSelecc = tablaUsuarios.getSelectionModel().getSelectedItem();
-        if (usuarioModeloSelecc != null) {
-            usuarioModeloSelecc.setDni(ponerId.getText());
-            usuarioModeloSelecc.setNombre(ponerNombre.getText());
-            usuarioModeloSelecc.setApellidos(ponerApellidos.getText());
-            usuarioModeloSelecc.setDireccion(ponerDireccion.getText());
-            usuarioModeloSelecc.setLocalidad(ponerLocalidad.getText());
-            usuarioModeloSelecc.setProvincia(ponerProvincia.getText());
+        // Verificar si un usuario ha sido seleccionado en la tabla
+        UsuarioModelo usuarioSeleccionado = tablaUsuarios.getSelectionModel().getSelectedItem();
+        if (usuarioSeleccionado == null) {
+            mostrarAlerta("Error", "Debe seleccionar un usuario para editar.");
+            return;
+        }
 
-            boolean okClicked = main.pantallaEditarUsuario(usuarioModeloSelecc);
-            if (okClicked) {
-                try {
-                    prestamoModelo.editarUsuario(usuarioModeloSelecc);
-                    mostrarDatosUsuario(usuarioModeloSelecc);
-                    cargarDatosUsuarios();
-                } catch (ExceptionPrestamo | SQLException e) {
-                    mostrarAlerta("Error", "No se pudo editar al usuario");
-                }
-            }
-        } else {
-            mostrarAlerta("Nada seleccionado", "Seleccione un usuario para editar");
+        // Obtener los datos del formulario
+        String dni = ponerId.getText();
+        String nombre = ponerNombre.getText();
+        String apellidos = ponerApellido.getText();
+        String direccion = ponerDireccion.getText();
+        String localidad = ponerLocalidad.getText();
+        String provincia = ponerProvincia.getText();
+
+        // Validar que los campos no estén vacíos
+        if (dni.isEmpty() || nombre.isEmpty() || apellidos.isEmpty() || direccion.isEmpty() || localidad.isEmpty() || provincia.isEmpty()) {
+            mostrarAlerta("Error", "Por favor, complete todos los campos.");
+            return;
+        }
+
+        try {
+            // Crear el objeto UsuarioVO con los datos editados
+            UsuarioVO usuarioEditado = new UsuarioVO(dni, nombre, apellidos, direccion, localidad, provincia);
+
+            // Actualizar el usuario en el repositorio
+            usuarioRepository.editUsuario(usuarioEditado);
+
+            // Actualizar la lista de usuarios y refrescar la tabla
+            cargarUsuarios();
+
+            // Limpiar los campos de entrada
+            limpiarCampos();
+
+        } catch (Exception e) {
+            mostrarAlerta("Error", "No se pudo editar el usuario.");
         }
     }
 
     @FXML
     private void botonEliminarUsuario() {
-        UsuarioModelo usuarioModeloSeleccionado = tablaUsuarios.getSelectionModel().getSelectedItem();
-        if (usuarioModeloSeleccionado != null) {
+        // Verificar si un usuario ha sido seleccionado en la tabla
+        UsuarioModelo usuarioSeleccionado = tablaUsuarios.getSelectionModel().getSelectedItem();
+        if (usuarioSeleccionado == null) {
+            mostrarAlerta("Error", "Debe seleccionar un usuario para eliminar.");
+            return;
+        }
+
+        // Confirmación antes de eliminar
+        Alert alerta = new Alert(Alert.AlertType.CONFIRMATION);
+        alerta.setTitle("Confirmación");
+        alerta.setHeaderText(null);
+        alerta.setContentText("¿Está seguro de que desea eliminar al usuario con DNI " + usuarioSeleccionado.getDni() + "?");
+
+        if (alerta.showAndWait().get() == ButtonType.OK) {
             try {
-                prestamoModelo.eliminarUsuario(usuarioModeloSeleccionado);
-                cargarDatosUsuarios();
-            } catch (ExceptionPrestamo | SQLException e) {
-                mostrarAlerta("Error", "No se pudo eliminar al usuario");
+                // Eliminar el usuario del repositorio
+                usuarioRepository.deleteUsuario(usuarioSeleccionado.getDni());
+
+                // Eliminar el usuario de la lista y refrescar la tabla
+                listaUsuarios.remove(usuarioSeleccionado);
+
+            } catch (Exception e) {
+                mostrarAlerta("Error", "No se pudo eliminar el usuario.");
             }
-        } else {
-            mostrarAlerta("Nada seleccionado", "Seleccione un usuario para eliminar");
         }
     }
 
-    @FXML
-    private void busquedaDni() {
-        try {
-            String dniBuscado = buscarDni.getText().trim();
-            if (dniBuscado.isEmpty()) {
-                mostrarAlerta("Búsqueda vacía", "Ingrese un DNI.");
-                return;
-            }
-            UsuarioModelo usuarioModelo = prestamoModelo.buscarDNI(dniBuscado);
-            if (usuarioModelo == null) {
-                mostrarAlerta("Usuario no encontrado", "No se ha encontrado un usuario con el DNI proporcionado.");
-                return;
-            }
-            mostrarDatosUsuario(usuarioModelo);
-            usuarioModeloData.setAll(usuarioModelo);
-            tablaUsuarios.setItems(usuarioModeloData);
-        } catch (ExceptionPrestamo| SQLException e) {
-            mostrarAlerta("Error", e.getMessage());
-        }
+    private void mostrarAlerta(String titulo, String mensaje) {
+        Alert alerta = new Alert(Alert.AlertType.ERROR);
+        alerta.setTitle(titulo);
+        alerta.setHeaderText(null);
+        alerta.setContentText(mensaje);
+        alerta.showAndWait();
+    }
+
+    private void limpiarCampos() {
+        // Limpiar los campos de entrada
+        ponerId.clear();
+        ponerNombre.clear();
+        ponerApellido.clear();
+        ponerDireccion.clear();
+        ponerLocalidad.clear();
+        ponerProvincia.clear();
     }
 }
