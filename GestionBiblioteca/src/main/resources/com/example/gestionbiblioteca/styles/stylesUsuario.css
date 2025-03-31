@@ -149,7 +149,8 @@
 }
 
 .TextField:focused {
-    -fx-border-color: #1ABC9C;
+    -fx-border-color: #BDC3C7; /* Usar el mismo color que el estado no enfocado */
+    -fx-effect: none; /* Eliminar cualquier efecto al enfocar */
 }
 
 /* Botones */

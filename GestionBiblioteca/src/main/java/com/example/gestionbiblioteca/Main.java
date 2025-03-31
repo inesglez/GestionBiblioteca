@@ -2,6 +2,7 @@ package com.example.gestionbiblioteca;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
@@ -11,11 +12,12 @@ public class Main extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-        // Cargar el archivo FXML (vista)
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/example/gestionbiblioteca/vista/main_view.fxml"));
+        // Cargar el archivo FXML (vista) solo una vez
+        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/com/example/gestionbiblioteca/Main_view.fxml"));
+        Parent root = fxmlLoader.load();  // Solo se llama una vez
 
-        // Crear una nueva escena con el contenido de la vista
-        Scene scene = new Scene(fxmlLoader.load(), 800, 600);
+        // Crear la escena con el contenido de la vista
+        Scene scene = new Scene(root, 800, 600);  // Usamos "root" aquí
 
         // Establecer el título de la ventana
         stage.setTitle("Gestión de Biblioteca");

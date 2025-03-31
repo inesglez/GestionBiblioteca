@@ -3,9 +3,12 @@ package com.example.gestionbiblioteca.controller;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
+import javafx.scene.layout.AnchorPane;
 
 public class CrearUsuarioController {
 
+    @FXML
+    private AnchorPane root;  // Usamos AnchorPane en lugar de VBox
     @FXML
     private TextField ponerId;
     @FXML
@@ -36,7 +39,9 @@ public class CrearUsuarioController {
 
     @FXML
     private void botonCancelar() {
-        ventana.close();
+        if (ventana != null) {
+            ventana.close();
+        }
     }
 
     private void mostrarAlerta(String titulo, String mensaje) {

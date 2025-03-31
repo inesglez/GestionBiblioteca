@@ -14,5 +14,8 @@ module com.example.gestionbiblioteca {
     requires java.sql;
 
     opens com.example.gestionbiblioteca to javafx.fxml;
+    opens com.example.gestionbiblioteca.controller to javafx.fxml; // Agregado para permitir el acceso al controlador
+
     exports com.example.gestionbiblioteca;
+    exports com.example.gestionbiblioteca.controller; // Exportando el paquete controller
 }
