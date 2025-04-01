@@ -1,170 +1,106 @@
-/* Estilo general para la tabla de préstamos */
+/* Estilo general para la tabla de usuarios */
 .table-view {
-    background-color: #f5f5f5; /* Fondo claro */
-    border: 2px solid #6c5ce7; /* Morado fuerte */
-    border-radius: 12px;
-    padding: 8px;
-    box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
-}
-
-/* Estilo global para etiquetas */
-.label {
-    font-weight: 600;
-    font-family: 'Arial', sans-serif;
-    color: #2d3436; /* Gris oscuro */
-}
-
-/* Encabezado de columnas */
-.table-view .column-header-background {
-    background-color: #a29bfe; /* Morado claro */
-    border-radius: 12px 12px 0 0;
-    color: white;
-    font-size: 14px;
-    font-weight: bold;
+    -fx-background-color: #ffffff;
+    -fx-border-color: #3498db;
+    -fx-border-radius: 5;
+    -fx-padding: 10;
+    -fx-box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 /* Estilo de las columnas */
 .table-view .table-column {
-    text-align: center;
-    color: #2d3436; /* Gris oscuro */
-    font-size: 13px;
+    -fx-text-fill: #34495e;
+    -fx-font-size: 14px;
+    -fx-alignment: center;
 }
 
 /* Estilo de las filas */
 .table-row-cell {
-    background-color: #dfe6e9; /* Gris muy claro */
-    color: #2d3436; /* Gris oscuro */
+    -fx-background-color: #ecf0f1;
+    -fx-text-fill: #2d3436;
 }
 
 .table-row-cell:selected {
-    background-color: #6c5ce7; /* Morado fuerte */
-    color: #ffffff; /* Blanco */
+    -fx-background-color: #a99ff4;
+    -fx-text-fill: #ffffff;
 }
 
 /* Estilo de los botones */
 .button {
-    background-color: #6c5ce7; /* Morado vibrante */
-    color: white;
-    font-weight: 600;
-    border-radius: 8px;
-    padding: 8px 16px;
+    -fx-background-color: #7b6ee3;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-border-radius: 8px;
+    -fx-padding: 10px 20px;
+    -fx-font-size: 14px;
+    -fx-cursor: hand;
 }
 
 .button:hover {
-    background-color: #a29bfe; /* Morado claro */
+    -fx-background-color: #a29bfe;
 }
 
 .button:disabled {
-    background-color: #b2bec3; /* Gris claro */
-    color: #636e72; /* Gris más oscuro */
-    opacity: 0.7;
+    -fx-background-color: #b2bec3;
+    -fx-text-fill: #636e72;
 }
 
 /* Estilo de los campos de texto */
-.text-field {
-    background-color: white;
-    border: 2px solid #a29bfe; /* Morado claro */
-    border-radius: 6px;
-    padding: 6px 12px;
+.input-field {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #bdc3c7;
+    -fx-border-radius: 5;
+    -fx-padding: 5px 10px;
+    -fx-font-size: 14px;
 }
 
-.text-field.error {
-    border-color: #e74c3c; /* Rojo brillante */
-    background-color: #f9ebea; /* Fondo de error claro */
-    border-width: 2px;
+.input-field:focused {
+    -fx-border-color: #6c5ce7;
 }
 
 /* Estilo del título */
-.label-header {
-    color: #6c5ce7; /* Morado fuerte */
-    font-size: 28px;
-    font-weight: bold;
-}
-
-/* Estilo del GridPane */
-.grid-pane {
-    background-color: #ffffff;
-    border: 2px solid #6c5ce7; /* Morado suave */
-    border-radius: 12px;
-    padding: 12px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
-
-/* Estilo del MenuBar */
-.menu-bar {
-    background-color: #a29bfe; /* Morado claro */
-    padding: 5px;
-}
-
-/* Estilo de los Menus */
-.menu {
-    color: white;
-    font-weight: bold;
-    font-size: 14px;
-    padding: 6px 12px;
-}
-
-.menu:hover {
-    background-color: #6c5ce7; /* Morado oscuro */
-    color: #ffffff;
-    border-radius: 8px;
-}
-
-/* Estilo de los Items del Menu */
-.menu-item {
-    background-color: #ffffff; /* Blanco */
-    color: #6c5ce7; /* Morado */
-    font-size: 17px;
-    padding: 8px 16px;
-}
-
-.menu-item:hover {
-    background-color: #a29bfe; /* Morado suave */
-    color: white;
-}
-
-/* Estilo para el pie de página */
-.footer {
-    background-color: white;
-    color: black;
-    font-size: 16px;
-    text-align: center;
-    padding: 10px;
-    position: relative;
-    bottom: 0;
-    width: 100%;
-}
-/* Fondo general */
-.background {
-    background-color: #f4f6f9;
-    -fx-background-radius: 10;
-}
-
-/* Títulos */
 .titulo {
     -fx-text-fill: #2c3e50;
     -fx-font-size: 24px;
     -fx-font-weight: bold;
 }
 
-/* Estilo para las tablas */
-.table-view {
+/* Estilo del GridPane */
+.grid-pane {
     -fx-background-color: #ffffff;
-    -fx-border-color: #3498db;
-    -fx-border-radius: 5;
-    -fx-padding: 10;
+    -fx-border-color: #6c5ce7;
+    -fx-border-radius: 12px;
+    -fx-padding: 12px;
+    -fx-box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    -fx-border-top: 2px solid #000;
+
 }
 
-/* Estilo para las celdas */
-.table-view .table-cell {
+/* Fondo general */
+.background {
+    -fx-background-color: #f4f6f9;
+    -fx-background-radius: 10;
+}
+
+/* Estilo de las etiquetas */
+.label {
+    -fx-font-weight: bold;
     -fx-text-fill: #34495e;
+    -fx-font-size: 14px;
 }
 
-/* Campos de texto */
-.input-field {
+/* Estilo de los textos de error */
+.input-field.error {
+    -fx-border-color: #e74c3c;
+    -fx-background-color: #f9ebea;
+}
+
+/* Estilo para el pie de página */
+.footer {
     -fx-background-color: #ffffff;
-    -fx-border-color: #bdc3c7;
-    -fx-border-radius: 5;
-    -fx-padding: 5px;
+    -fx-text-fill: #2c3e50;
     -fx-font-size: 14px;
+    -fx-text-align: center;
+    -fx-padding: 10px;
+    -fx-border-top: 1px solid #bdc3c7;
 }

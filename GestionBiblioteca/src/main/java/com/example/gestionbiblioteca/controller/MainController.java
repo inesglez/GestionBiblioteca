@@ -50,7 +50,33 @@ public class MainController {
 
     @FXML
     private void listarUsuarios() {
-        System.out.println("Listar Usuarios");
+        try {
+            // Cargar el FXML de CrearUsuario
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/gestionbiblioteca/VP.fxml"));
+            AnchorPane root = loader.load();
+
+            // Obtener el controlador de la vista cargada
+            VPController controller = loader.getController();
+
+            // Crear la escena y la ventana
+            Stage stage = new Stage();
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.setTitle("Listar Usuarios");
+
+            // Pasar el Stage al controlador
+            controller.setVentana(stage);
+
+            // Mostrar la ventana
+            stage.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+            // Mostrar mensaje de error si no se puede cargar la vista
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText("No se pudo abrir la ventana de creación de prestamos");
+            alert.showAndWait();
+        }
     }
 
     @FXML
@@ -65,7 +91,33 @@ public class MainController {
 
     @FXML
     private void nuevoPrestamo() {
-        System.out.println("Nuevo Préstamo");
+        try {
+            // Cargar el FXML de CrearUsuario
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/gestionbiblioteca/CrearPrestamo.fxml"));
+            AnchorPane root = loader.load();
+
+            // Obtener el controlador de la vista cargada
+            AgregarPrestamoController controller = loader.getController();
+
+            // Crear la escena y la ventana
+            Stage stage = new Stage();
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.setTitle("Nuevo Prestamo");
+
+            // Pasar el Stage al controlador
+            controller.setVentana(stage);
+
+            // Mostrar la ventana
+            stage.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+            // Mostrar mensaje de error si no se puede cargar la vista
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText("No se pudo abrir la ventana de creación de prestamos");
+            alert.showAndWait();
+        }
     }
 
     @FXML

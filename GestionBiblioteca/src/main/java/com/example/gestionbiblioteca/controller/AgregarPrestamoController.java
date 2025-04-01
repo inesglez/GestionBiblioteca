@@ -20,27 +20,42 @@ public class AgregarPrestamoController {
     private Button botonGuardar;
 
     private PrestamoModelo prestamoModelo = new PrestamoModelo();
+    private Stage ventana; // Agregado para recibir la ventana desde el MainController
+
+    public void setVentana(Stage ventana) {
+        this.ventana = ventana;
+    }
 
     @FXML
     private void initialize() {
-        // Inicializa los valores predeterminados si es necesario
+        // Inicializa valores si es necesario
     }
 
     @FXML
     private void botonGuardarPrestamo() {
-        // Captura los datos del formulario
-        LocalDate fechaPrestamoValor = fechaPrestamo.getValue();
-        LocalDate fechaDevolucionValor = fechaDevolucion.getValue();
-        String libro = libroPrestado.getText();
-
-        // Crear un nuevo préstamo
-        PrestamoModelo nuevoPrestamo = new PrestamoModelo("", fechaPrestamoValor, fechaDevolucionValor, libro);
-
         try {
-            // Llamar al modelo para añadir el nuevo préstamo
+            LocalDate fechaPrestamoValor = fechaPrestamo.getValue();
+            LocalDate fechaDevolucionValor = fechaDevolucion.getValue();
+            String libro = libroPrestado.getText();
+
+            // Validación de campos
+            if (fechaPrestamoValor == null || fechaDevolucionValor == null || libro.isEmpty()) {
+                mostrarAlerta("Advertencia", "Todos los campos son obligatorios.");
+                return;
+            }
+
+            if (fechaDevolucionValor.isBefore(fechaPrestamoValor)) {
+                mostrarAlerta("Advertencia", "La fecha de devolución no puede ser anterior a la fecha de préstamo.");
+                return;
+            }
+
+            // Crear el préstamo
+            PrestamoModelo nuevoPrestamo = new PrestamoModelo("", fechaPrestamoValor, fechaDevolucionValor, libro);
             prestamoModelo.anadirPrestamo(nuevoPrestamo);
+
             mostrarAlerta("Éxito", "Préstamo añadido correctamente.");
             cerrarVentana();
+
         } catch (SQLException e) {
             mostrarAlerta("Error", "No se pudo añadir el préstamo: " + e.getMessage());
         }
@@ -54,8 +69,11 @@ public class AgregarPrestamoController {
         alert.showAndWait();
     }
 
-    private void cerrarVentana() {
-        // Cierra la ventana actual (solo si se ha abierto como nueva ventana, no en un contexto de escena principal)
-        ((Stage) botonGuardar.getScene().getWindow()).close();
+    @FXML
+    public void cerrarVentana() {
+        // Usamos el componente fechaPrestamo para obtener la ventana
+        Stage stage = (Stage) fechaPrestamo.getScene().getWindow();
+        stage.close();
     }
+
 }

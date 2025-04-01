@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.GridPane?>
+
+<AnchorPane prefHeight="568.0" prefWidth="601.0"
+            stylesheets="@styles/AgregarPrestamo.css"
+            xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.gestionbiblioteca.controller.AgregarPrestamoController">
+    <children>
+        <!-- Título -->
+        <Label layoutX="214.0" layoutY="46.0" text="Nuevo Préstamo">
+            <font>
+                <Font name="System Bold" size="25.0" />
+            </font>
+        </Label>
+
+        <!-- Formulario de préstamo -->
+        <GridPane hgap="20" layoutX="52.0" layoutY="118.0" prefHeight="350.0" prefWidth="508.0" vgap="15">
+            <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="100.0" prefWidth="150.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="150.0" prefWidth="200.0" />
+            </columnConstraints>
+            <rowConstraints>
+                <RowConstraints minHeight="30.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="30.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="30.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="30.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="30.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            </rowConstraints>
+            <children>
+                <Label text="Nombre" />
+                <TextField fx:id="nombrePersona" GridPane.columnIndex="1" />
+
+                <Label text="DNI" GridPane.rowIndex="1" />
+                <TextField fx:id="dniPersona" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+
+                <Label text="Libro" GridPane.rowIndex="2" />
+                <TextField fx:id="libroPrestado" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+
+                <Label text="Fecha Préstamo" GridPane.rowIndex="3" />
+                <DatePicker fx:id="fechaPrestamo" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+
+                <Label text="Fecha Devolución" GridPane.rowIndex="4" />
+                <DatePicker fx:id="fechaDevolucion" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            </children>
+        </GridPane>
+
+        <!-- Botones -->
+        <Button layoutX="322.0" layoutY="494.0" mnemonicParsing="false" onAction="#botonGuardarPrestamo" prefHeight="47.0" prefWidth="117.0" styleClass="Button-guardar" text="Guardar" />
+        <Button layoutX="449.0" layoutY="494.0" mnemonicParsing="false" onAction="#cerrarVentana" prefHeight="47.0" prefWidth="117.0" styleClass="Button-cancelar" text="Cancelar" />
+    </children>
+</AnchorPane>

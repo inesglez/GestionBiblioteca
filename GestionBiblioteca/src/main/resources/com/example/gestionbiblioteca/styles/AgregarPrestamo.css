@@ -1,0 +1,72 @@
+/* Estilo general */
+.AnchorPane {
+    -fx-background-color: #ECF0F1;
+    -fx-padding: 20px;
+    -fx-effect: dropshadow(gaussian, #BDC3C7, 10, 0.8, 0, 10);
+    -fx-border-radius: 10;
+}
+
+.Label {
+    -fx-font-size: 16px;
+    -fx-text-fill: #34495E;
+    -fx-font-weight: bold;
+}
+
+.Label:hover {
+    -fx-text-fill: #1ABC9C;
+}
+
+/* Título */
+.Label[text='Nuevo Préstamo'] {
+    -fx-font-size: 25px;
+    -fx-text-fill: #2C3E50;
+    -fx-font-weight: bold;
+    -fx-effect: dropshadow(gaussian, #BDC3C7, 10, 0.8, 0, 5);
+}
+
+/* Estilo del formulario */
+.GridPane {
+    -fx-background-color: #FFFFFF;
+    -fx-border-radius: 8;
+    -fx-padding: 20px;
+    -fx-effect: dropshadow(gaussian, #BDC3C7, 10, 0.6, 0, 5);
+    -fx-alignment: center;
+}
+
+.TextField, .DatePicker {
+    -fx-background-color: #FFFFFF;
+    -fx-border-radius: 8;
+    -fx-border-color: #BDC3C7;
+    -fx-padding: 10;
+    -fx-font-size: 14px;
+    -fx-text-fill: #34495E;
+    -fx-effect: dropshadow(gaussian, #BDC3C7, 8, 0.6, 0, 2);
+}
+
+.TextField:focused, .DatePicker:focused {
+    -fx-border-color: #838181;
+    -fx-effect: none;
+}
+
+/* Botones */
+.Button-guardar, .Button-cancelar {
+    -fx-background-color: #27AE60;
+    -fx-border-radius: 8;
+    -fx-padding: 12 24;
+    -fx-font-size: 16px;
+    -fx-text-fill: WHITE;
+    -fx-cursor: hand;
+    -fx-background-radius: 10;
+}
+
+.Button-guardar:hover {
+    -fx-background-color: #2ECC71;
+}
+
+.Button-cancelar {
+    -fx-background-color: #C0392B;
+}
+
+.Button-cancelar:hover {
+    -fx-background-color: #E74C3C;
+}

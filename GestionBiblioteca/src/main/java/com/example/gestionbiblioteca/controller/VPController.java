@@ -72,39 +72,13 @@ public class VPController {
             // Establecer los datos en la tabla
             tablaUsuarios.setItems(listaUsuarios);
         } catch (Exception e) {
-            mostrarAlerta("Error", "No se pudo cargar la lista de usuarios.");
-        }
-    }
-
-    @FXML
-    private void botonNuevoUsuario() {
-        // Obtener los datos del formulario
-        String dni = ponerId.getText();
-        String nombre = ponerNombre.getText();
-        String apellidos = ponerApellido.getText();
-        String direccion = ponerDireccion.getText();
-        String localidad = ponerLocalidad.getText();
-        String provincia = ponerProvincia.getText();
-
-        // Validar que los campos no estén vacíos
-        if (dni.isEmpty() || nombre.isEmpty() || apellidos.isEmpty() || direccion.isEmpty() || localidad.isEmpty() || provincia.isEmpty()) {
-            mostrarAlerta("Error", "Por favor, complete todos los campos.");
-            return;
-        }
-
-        try {
-            // Crear el objeto UsuarioVO y agregarlo al repositorio
-            UsuarioVO nuevoUsuario = new UsuarioVO(dni, nombre, apellidos, direccion, localidad, provincia);
-            usuarioRepository.addUsuario(nuevoUsuario);
-
-            // Actualizar la lista de usuarios y refrescar la tabla
-            cargarUsuarios();
-
-            // Limpiar los campos de entrada
-            limpiarCampos();
-
-        } catch (Exception e) {
-            mostrarAlerta("Error", "No se pudo agregar el usuario.");
+            e.printStackTrace();  // Imprime la excepción en la consola
+            // Mostrar mensaje de error
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText("No se pudo cargar la vista");
+            alert.setContentText(e.getMessage()); // Mostrar el mensaje de error completo
+            alert.showAndWait();
         }
     }
 

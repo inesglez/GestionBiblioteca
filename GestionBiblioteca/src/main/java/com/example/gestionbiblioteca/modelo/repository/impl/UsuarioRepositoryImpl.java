@@ -24,7 +24,7 @@ public class UsuarioRepositoryImpl implements UsuarioRepository {
             Connection conn = this.conexion.conectarBD();
             this.usuarios = new ArrayList();
             this.stmt = conn.createStatement();
-            this.sentencia = "SELECT * FROM usuario";
+            this.sentencia = "SELECT * FROM usuarios";
             ResultSet rs = this.stmt.executeQuery(this.sentencia);
 
             while(rs.next()) {

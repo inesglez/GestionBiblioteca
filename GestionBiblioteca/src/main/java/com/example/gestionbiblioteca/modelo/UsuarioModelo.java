@@ -34,10 +34,6 @@ public class UsuarioModelo {
         this.prestamos = new ArrayList<>();
     }
 
-    /*
-     * MÉTODOS PARA GESTIONAR LOS PRESTAMOS
-     */
-
     // Añadir un préstamo
     public void agregarPrestamo(PrestamoVO prestamo) {
         prestamos.add(prestamo);

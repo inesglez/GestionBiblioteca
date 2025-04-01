@@ -16,10 +16,11 @@
                 <AnchorPane prefHeight="500.0" prefWidth="340.0">
                     <children>
                         <TableView fx:id="tablaUsuarios" prefWidth="340.0" AnchorPane.topAnchor="10.0"
-                                   AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0">
+                                   AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0"
+                                   styleClass="table-view">
                             <columns>
-                                <TableColumn fx:id="columnaNombre" text="Nombre" prefWidth="150.0" />
-                                <TableColumn fx:id="columnaApellido" text="Apellido" prefWidth="150.0" />
+                                <TableColumn fx:id="columnaNombre" text="Nombre" prefWidth="150.0" styleClass="table-column"/>
+                                <TableColumn fx:id="columnaApellido" text="Apellido" prefWidth="150.0" styleClass="table-column"/>
                             </columns>
                         </TableView>
                     </children>
@@ -30,36 +31,34 @@
                     <children>
                         <VBox layoutX="20.0" layoutY="20.0" spacing="10.0">
                             <children>
-                                <Label text="Gestión de Usuarios">
+                                <Label text="Gestión de Usuarios" styleClass="titulo">
                                     <font><Font name="System Bold" size="20.0" /></font>
-                                    <styleClass>titulo</styleClass>
                                 </Label>
 
-                                <GridPane hgap="10" vgap="10">
+                                <GridPane hgap="10" vgap="10" styleClass="grid-pane">
                                     <children>
-                                        <Label text="DNI" GridPane.rowIndex="0" />
+                                        <Label text="DNI" GridPane.rowIndex="0" styleClass="label"/>
                                         <TextField fx:id="ponerId" GridPane.rowIndex="0" GridPane.columnIndex="1" styleClass="input-field"/>
 
-                                        <Label text="Nombre" GridPane.rowIndex="1" />
+                                        <Label text="Nombre" GridPane.rowIndex="1" styleClass="label"/>
                                         <TextField fx:id="ponerNombre" GridPane.rowIndex="1" GridPane.columnIndex="1" styleClass="input-field"/>
 
-                                        <Label text="Apellidos" GridPane.rowIndex="2" />
+                                        <Label text="Apellidos" GridPane.rowIndex="2" styleClass="label"/>
                                         <TextField fx:id="ponerApellido" GridPane.rowIndex="2" GridPane.columnIndex="1" styleClass="input-field"/>
 
-                                        <Label text="Dirección" GridPane.rowIndex="3" />
+                                        <Label text="Dirección" GridPane.rowIndex="3" styleClass="label"/>
                                         <TextField fx:id="ponerDireccion" GridPane.rowIndex="3" GridPane.columnIndex="1" styleClass="input-field"/>
 
-                                        <Label text="Localidad" GridPane.rowIndex="4" />
+                                        <Label text="Localidad" GridPane.rowIndex="4" styleClass="label"/>
                                         <TextField fx:id="ponerLocalidad" GridPane.rowIndex="4" GridPane.columnIndex="1" styleClass="input-field"/>
 
-                                        <Label text="Provincia" GridPane.rowIndex="5" />
+                                        <Label text="Provincia" GridPane.rowIndex="5" styleClass="label"/>
                                         <TextField fx:id="ponerProvincia" GridPane.rowIndex="5" GridPane.columnIndex="1" styleClass="input-field"/>
                                     </children>
                                 </GridPane>
 
                                 <HBox spacing="10">
                                     <children>
-                                        <Button text="Añadir" fx:id="botonNuevoUsuario" onAction="#botonNuevoUsuario" styleClass="button"/>
                                         <Button text="Editar" fx:id="botonEditarUsuario" onAction="#botonEditarUsuario" styleClass="button"/>
                                         <Button text="Eliminar" fx:id="botonEliminarUsuario" onAction="#botonEliminarUsuario" styleClass="button"/>
                                     </children>
