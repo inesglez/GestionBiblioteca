@@ -4,10 +4,8 @@ import com.example.gestionbiblioteca.modelo.UsuarioVO;
 import com.example.gestionbiblioteca.modelo.repository.ExceptionUsuario;
 import com.example.gestionbiblioteca.modelo.repository.UsuarioRepository;
 
-
 import java.sql.*;
 import java.util.ArrayList;
-
 
 public class UsuarioRepositoryImpl implements UsuarioRepository {
     private final Conexion conexion = new Conexion();
@@ -19,22 +17,24 @@ public class UsuarioRepositoryImpl implements UsuarioRepository {
     public UsuarioRepositoryImpl() {
     }
 
+    // Método para obtener la lista de usuarios
+    @Override
     public ArrayList<UsuarioVO> ObtenerListaUsuarios() throws ExceptionUsuario {
         try {
             Connection conn = this.conexion.conectarBD();
-            this.usuarios = new ArrayList();
+            this.usuarios = new ArrayList<>();
             this.stmt = conn.createStatement();
-            this.sentencia = "SELECT * FROM usuarios";
+            this.sentencia = "SELECT * FROM usuarios";  // Cambié 'usuario' por 'usuarios'
             ResultSet rs = this.stmt.executeQuery(this.sentencia);
 
-            while(rs.next()) {
+            while (rs.next()) {
                 String nombre = rs.getString("nombre");
                 String apellidos = rs.getString("apellidos");
                 String direccion = rs.getString("direccion");
                 String localidad = rs.getString("localidad");
                 String provincia = rs.getString("provincia");
-                String DNI = rs.getString("DNI");
-                this.usuario= new UsuarioVO(DNI,nombre,apellidos,direccion,localidad,provincia);
+                String DNI = rs.getString("DNI");  // Asegúrate de que 'DNI' esté en mayúsculas en la base de datos
+                this.usuario = new UsuarioVO(DNI, nombre, apellidos, direccion, localidad, provincia);
                 this.usuarios.add(this.usuario);
             }
 
@@ -45,10 +45,11 @@ public class UsuarioRepositoryImpl implements UsuarioRepository {
         }
     }
 
-    public void addUsuario(UsuarioVO usuarioVO) throws ExceptionUsuario{
+    // Método para agregar un nuevo usuario
+    public void addUsuario(UsuarioVO usuarioVO) throws ExceptionUsuario {
         try {
             Connection conn = this.conexion.conectarBD();
-            String sql = "INSERT INTO usuario (nombre, apellidos, direccion, localidad, provincia, DNI) VALUES (?, ?, ?, ?, ?, ?)";
+            String sql = "INSERT INTO usuarios (nombre, apellidos, direccion, localidad, provincia, DNI) VALUES (?, ?, ?, ?, ?, ?)";  // Cambié 'usuario' por 'usuarios'
             PreparedStatement stmt = conn.prepareStatement(sql);
             stmt.setString(1, usuarioVO.getNombre());
             stmt.setString(2, usuarioVO.getApellidos());
@@ -60,17 +61,29 @@ public class UsuarioRepositoryImpl implements UsuarioRepository {
             stmt.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();  // Imprime el detalle del error
-            throw new ExceptionUsuario("No se ha podido realizar la edición");
+            throw new ExceptionUsuario("No se ha podido realizar la operación");
         }
     }
 
-    public void deleteUsuario(String dniUsuario) throws ExceptionUsuario{
+    // Método para eliminar un usuario por DNI
+    public void deleteUsuario(String dniUsuario) throws ExceptionUsuario {
         try {
             Connection conn = this.conexion.conectarBD();
-            String sql = "DELETE FROM usuario WHERE DNI = ?";
+            String sql = "DELETE FROM usuarios WHERE DNI = ?";
             PreparedStatement pstmt = conn.prepareStatement(sql);
-            pstmt.setString(1, dniUsuario);  // Asignar el valor de dniPersona de forma segur
-            pstmt.executeUpdate();
+            pstmt.setString(1, dniUsuario);  // Asignar el valor de dniUsuario de forma segura
+
+            // Ejecutar la actualización y obtener las filas afectadas
+            int rowsAffected = pstmt.executeUpdate();
+
+            // Imprimir las filas afectadas
+            System.out.println("Filas afectadas: " + rowsAffected);
+
+            // Verificar si no se eliminó nada
+            if (rowsAffected == 0) {
+                System.out.println("No se eliminó ningún usuario con el DNI: " + dniUsuario);
+            }
+
             this.conexion.desconectarBD(conn);
         } catch (SQLException var5) {
             throw new ExceptionUsuario("No se ha podido realizar la eliminación");
@@ -78,10 +91,11 @@ public class UsuarioRepositoryImpl implements UsuarioRepository {
     }
 
 
+    // Método para editar un usuario
     public void editUsuario(UsuarioVO usuarioVO) throws ExceptionUsuario {
         try {
             Connection conn = this.conexion.conectarBD();
-            String sql = "UPDATE usuario SET nombre = ?, apellidos = ?, direccion = ?, localidad = ?, provincia = ? WHERE DNI = ?";
+            String sql = "UPDATE usuarios SET nombre = ?, apellidos = ?, direccion = ?, localidad = ?, provincia = ? WHERE DNI = ?";  // Cambié 'usuario' por 'usuarios'
             PreparedStatement stmt = conn.prepareStatement(sql);
             stmt.setString(1, usuarioVO.getNombre());
             stmt.setString(2, usuarioVO.getApellidos());
@@ -91,23 +105,25 @@ public class UsuarioRepositoryImpl implements UsuarioRepository {
             stmt.setString(6, usuarioVO.getDNI());
             stmt.executeUpdate();
         } catch (Exception var4) {
-            throw new ExceptionUsuario("No se ha podido realizar la edición");
+            throw new ExceptionUsuario("No se ha podido realizar la operación");
         }
     }
 
-    public int lastId() throws ExceptionUsuario{
+    // Método para obtener el último ID (utilizado para generar IDs de usuarios)
+    public int lastId() throws ExceptionUsuario {
         int lastUsuarioId = 0;
 
         try {
             Connection conn = this.conexion.conectarBD();
             Statement comando = conn.createStatement();
-
-            for(ResultSet registro = comando.executeQuery("SELECT codigo FROM Usuario ORDER BY codigo DESC LIMIT 1"); registro.next(); lastUsuarioId = registro.getInt("codigo")) {
+            ResultSet rs = comando.executeQuery("SELECT codigo FROM usuarios ORDER BY codigo DESC LIMIT 1");  // Cambié 'Usuario' por 'usuarios'
+            if (rs.next()) {
+                lastUsuarioId = rs.getInt("codigo");
             }
 
             return lastUsuarioId;
         } catch (SQLException var5) {
-            throw new ExceptionUsuario("No se ha podido realizar la busqueda del ID");
+            throw new ExceptionUsuario("No se ha podido obtener el último ID del usuario");
         }
     }
 }

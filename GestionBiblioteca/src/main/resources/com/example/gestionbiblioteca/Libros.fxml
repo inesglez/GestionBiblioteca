@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.Insets?>
+
+<AnchorPane prefHeight="500.0" prefWidth="850.0" stylesheets="@styles/styles.css"
+            xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.example.gestionbiblioteca.controller.LibroController">
+    <children>
+        <SplitPane dividerPositions="0.4" prefHeight="500.0" prefWidth="850.0" AnchorPane.topAnchor="0.0"
+                   AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+            <items>
+                <!-- Tabla de libros -->
+                <AnchorPane prefHeight="500.0" prefWidth="340.0">
+                    <children>
+                        <TableView fx:id="tablaLibros" prefWidth="340.0" AnchorPane.topAnchor="10.0"
+                                   AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0"
+                                   styleClass="table-view">
+                            <columns>
+                                <TableColumn fx:id="columnaTitulo" text="Título" prefWidth="150.0" styleClass="table-column"/>
+                                <TableColumn fx:id="columnaAutor" text="Autor" prefWidth="150.0" styleClass="table-column"/>
+                                <TableColumn fx:id="columnaAnio" text="Año Publicación" prefWidth="100.0" styleClass="table-column"/>
+                            </columns>
+                        </TableView>
+                    </children>
+                </AnchorPane>
+
+                <!-- Formulario de libros -->
+                <AnchorPane prefHeight="500.0" prefWidth="510.0" styleClass="background">
+                    <children>
+                        <VBox layoutX="20.0" layoutY="20.0" spacing="10.0">
+                            <children>
+                                <Label text="Gestión de Libros" styleClass="titulo">
+                                    <font><Font name="System Bold" size="20.0" /></font>
+                                </Label>
+
+                                <GridPane hgap="10" vgap="10" styleClass="grid-pane">
+                                    <children>
+                                        <Label text="Título" GridPane.rowIndex="0" styleClass="label"/>
+                                        <TextField fx:id="ponerTitulo" GridPane.rowIndex="0" GridPane.columnIndex="1" styleClass="input-field"/>
+
+                                        <Label text="Autor" GridPane.rowIndex="1" styleClass="label"/>
+                                        <TextField fx:id="ponerAutor" GridPane.rowIndex="1" GridPane.columnIndex="1" styleClass="input-field"/>
+
+                                        <Label text="Año Publicación" GridPane.rowIndex="2" styleClass="label"/>
+                                        <TextField fx:id="ponerAnio" GridPane.rowIndex="2" GridPane.columnIndex="1" styleClass="input-field"/>
+
+                                        <Label text="Editorial" GridPane.rowIndex="3" styleClass="label"/>
+                                        <TextField fx:id="ponerEditorial" GridPane.rowIndex="3" GridPane.columnIndex="1" styleClass="input-field"/>
+
+                                        <Label text="Portada" GridPane.rowIndex="4" styleClass="label"/>
+                                        <TextField fx:id="ponerPortada" GridPane.rowIndex="4" GridPane.columnIndex="1" styleClass="input-field"/>
+
+                                        <Label text="Disponible" GridPane.rowIndex="5" styleClass="label"/>
+                                        <CheckBox fx:id="ponerDisponible" GridPane.rowIndex="5" GridPane.columnIndex="1" styleClass="input-field"/>
+                                    </children>
+                                </GridPane>
+
+                                <HBox spacing="10">
+                                    <children>
+                                        <Button text="Editar" fx:id="botonEditarLibro" onAction="#botonEditarLibro" styleClass="button"/>
+                                        <Button text="Eliminar" fx:id="botonEliminarLibro" onAction="#botonEliminarLibro" styleClass="button"/>
+                                        <Button text="Ver Detalles" fx:id="botonVerDetalles" onAction="#botonVerDetalles" styleClass="button"/>
+                                    </children>
+                                </HBox>
+                            </children>
+                        </VBox>
+                    </children>
+                </AnchorPane>
+            </items>
+        </SplitPane>
+    </children>
+</AnchorPane>

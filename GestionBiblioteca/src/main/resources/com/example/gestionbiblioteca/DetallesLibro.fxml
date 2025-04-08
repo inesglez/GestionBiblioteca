@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+
+<BorderPane xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.example.gestionbiblioteca.controller.DetallesLibroController"
+            styleClass="border-pane"
+            stylesheets="@styles/DetallesLibro.css">
+    <top>
+        <Label text="Detalles del Libro"
+               styleClass="label-title"
+               BorderPane.alignment="CENTER" />
+    </top>
+
+    <center>
+        <GridPane hgap="10" vgap="10" styleClass="grid-pane-center">
+            <Label text="ID Libro:" styleClass="label-grid" GridPane.rowIndex="0" GridPane.columnIndex="0" />
+            <Label fx:id="idLibroLabel" styleClass="label-value" GridPane.rowIndex="0" GridPane.columnIndex="1" />
+
+            <Label text="Título:" styleClass="label-grid" GridPane.rowIndex="1" GridPane.columnIndex="0" />
+            <Label fx:id="tituloLibroLabel" styleClass="label-value" GridPane.rowIndex="1" GridPane.columnIndex="1" />
+
+            <Label text="Autor:" styleClass="label-grid" GridPane.rowIndex="2" GridPane.columnIndex="0" />
+            <Label fx:id="autorLibroLabel" styleClass="label-value" GridPane.rowIndex="2" GridPane.columnIndex="1" />
+
+            <Label text="Año de Publicación:" styleClass="label-grid" GridPane.rowIndex="3" GridPane.columnIndex="0" />
+            <Label fx:id="anioPublicacionLabel" styleClass="label-value" GridPane.rowIndex="3" GridPane.columnIndex="1" />
+
+            <Label text="Editorial:" styleClass="label-grid" GridPane.rowIndex="4" GridPane.columnIndex="0" />
+            <Label fx:id="editorialLibroLabel" styleClass="label-value" GridPane.rowIndex="4" GridPane.columnIndex="1" />
+
+            <Label text="Disponibilidad:" styleClass="label-grid" GridPane.rowIndex="5" GridPane.columnIndex="0" />
+            <Label fx:id="disponibilidadLibroLabel" styleClass="label-value" GridPane.rowIndex="5" GridPane.columnIndex="1" />
+
+            <!-- Imagen de portada -->
+            <Label text="Portada:" styleClass="label-grid" GridPane.rowIndex="6" GridPane.columnIndex="0" />
+            <ImageView fx:id="portadaLibroImageView" GridPane.rowIndex="6" GridPane.columnIndex="1" fitHeight="200" fitWidth="150" />
+        </GridPane>
+    </center>
+
+    <bottom>
+        <HBox alignment="CENTER" spacing="20" styleClass="hbox-bottom">
+            <Button text="Cerrar" fx:id="cancelButton" onAction="#botonCerrarVentana" styleClass="button-cancel" />
+        </HBox>
+    </bottom>
+</BorderPane>

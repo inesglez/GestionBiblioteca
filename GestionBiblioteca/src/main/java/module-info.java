@@ -12,6 +12,7 @@ module com.example.gestionbiblioteca {
     requires com.almasb.fxgl.all;
     requires jdk.compiler;
     requires java.sql;
+    requires java.desktop;
 
     opens com.example.gestionbiblioteca to javafx.fxml;
     opens com.example.gestionbiblioteca.controller to javafx.fxml; // Agregado para permitir el acceso al controlador

@@ -81,12 +81,65 @@ public class MainController {
 
     @FXML
     private void agregarLibro() {
-        System.out.println("Agregar Libro");
+        try {
+            // Cargar el FXML de CrearUsuario
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/gestionbiblioteca/CrearLibro.fxml"));
+            AnchorPane root = loader.load();
+
+            // Obtener el controlador de la vista cargada
+            CrearLibroController controller = loader.getController();
+
+            // Crear la escena y la ventana
+            Stage stage = new Stage();
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.setTitle("Crear Libro");
+
+            // Pasar el Stage al controlador
+            controller.setVentana(stage);
+
+            // Mostrar la ventana
+            stage.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+            // Mostrar mensaje de error si no se puede cargar la vista
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText("No se pudo abrir la ventana de creación de libro");
+            alert.showAndWait();
+        }
     }
+
 
     @FXML
     private void listarLibros() {
-        System.out.println("Listar Libros");
+        try {
+            // Cargar el FXML de CrearUsuario
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/gestionbiblioteca/Libros.fxml"));
+            AnchorPane root = loader.load();
+
+            // Obtener el controlador de la vista cargada
+            LibroController controller = loader.getController();
+
+            // Crear la escena y la ventana
+            Stage stage = new Stage();
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.setTitle("Listar Libros");
+
+            // Pasar el Stage al controlador
+            controller.setVentana(stage);
+
+            // Mostrar la ventana
+            stage.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+            // Mostrar mensaje de error si no se puede cargar la vista
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText("No se pudo abrir la ventana de visualización de Libros");
+            alert.showAndWait();
+        }
     }
 
     @FXML
