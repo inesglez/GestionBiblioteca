@@ -38,6 +38,9 @@
 
                                 <GridPane hgap="10" vgap="10" styleClass="grid-pane">
                                     <children>
+                                        <Label text="Id" GridPane.rowIndex="0" styleClass="label"/>
+                                        <TextField fx:id="ponerId" GridPane.rowIndex="0" GridPane.columnIndex="1" styleClass="input-field"/>
+
                                         <Label text="Título" GridPane.rowIndex="0" styleClass="label"/>
                                         <TextField fx:id="ponerTitulo" GridPane.rowIndex="0" GridPane.columnIndex="1" styleClass="input-field"/>
 
@@ -45,7 +48,7 @@
                                         <TextField fx:id="ponerAutor" GridPane.rowIndex="1" GridPane.columnIndex="1" styleClass="input-field"/>
 
                                         <Label text="Año Publicación" GridPane.rowIndex="2" styleClass="label"/>
-                                        <TextField fx:id="ponerAnio" GridPane.rowIndex="2" GridPane.columnIndex="1" styleClass="input-field"/>
+                                        <TextField fx:id="ponerAnioPublicacion" GridPane.rowIndex="2" GridPane.columnIndex="1" styleClass="input-field"/>
 
                                         <Label text="Editorial" GridPane.rowIndex="3" styleClass="label"/>
                                         <TextField fx:id="ponerEditorial" GridPane.rowIndex="3" GridPane.columnIndex="1" styleClass="input-field"/>

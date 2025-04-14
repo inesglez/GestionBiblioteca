@@ -56,6 +56,13 @@ public class VPController {
 
         // Cargar los usuarios
         cargarUsuarios();
+
+        // Listener para seleccionar un usuario de la tabla
+        tablaUsuarios.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue != null) {
+                rellenarCamposFormulario(newValue);
+            }
+        });
     }
 
     private void cargarUsuarios() {
@@ -80,6 +87,16 @@ public class VPController {
             alert.setContentText(e.getMessage()); // Mostrar el mensaje de error completo
             alert.showAndWait();
         }
+    }
+
+    // Rellenar los campos del formulario con los datos del usuario seleccionado
+    private void rellenarCamposFormulario(UsuarioModelo usuario) {
+        ponerId.setText(usuario.getDni());
+        ponerNombre.setText(usuario.getNombre());
+        ponerApellido.setText(usuario.getApellidos());
+        ponerDireccion.setText(usuario.getDireccion());
+        ponerLocalidad.setText(usuario.getLocalidad());
+        ponerProvincia.setText(usuario.getProvincia());
     }
 
     @FXML

@@ -20,6 +20,7 @@ public class DetallesLibroController {
 
     public void mostrarDetalles(LibroModelo libro) {
         // Establece los textos de los labels
+        idLibroLabel.setText(String.valueOf(libro.getIdLibro())); // Mostrar el ID del libro
         tituloLibroLabel.setText(libro.getTitulo());
         autorLibroLabel.setText(libro.getAutor());
         anioPublicacionLabel.setText(String.valueOf(libro.getAnioPublicacion()));

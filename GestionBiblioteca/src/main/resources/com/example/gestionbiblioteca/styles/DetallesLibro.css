@@ -1,0 +1,50 @@
+/* Estilo para el fondo principal */
+.border-pane {
+    -fx-background-color: #F5F7FA;
+}
+
+/* Estilo del título */
+.label-title {
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #121111;
+}
+
+/* Estilo para el GridPane del centro */
+.grid-pane-center {
+    -fx-padding: 20;
+    -fx-background-color: #b4cfe3;
+    -fx-border-radius: 10;
+    -fx-border-width: 2;
+    -fx-border-color: #BCC6CC;
+}
+
+/* Estilo para etiquetas del GridPane */
+.label-grid {
+    -fx-font-size: 16px;
+    -fx-text-fill: #34495E;
+    -fx-font-weight: bold; /* Esto pone en negrita el texto */
+}
+
+.label-value {
+    -fx-font-size: 16px;
+    -fx-text-fill: #2C3E50;
+}
+
+/* Estilo para el contenedor inferior */
+.hbox-bottom {
+    -fx-padding: 10;
+    -fx-spacing: 20;
+    -fx-alignment: center;
+}
+
+/* Estilo para los botones */
+.button-cancel {
+    -fx-background-color: #2980B9;
+    -fx-text-fill: #FFFFFF;
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-padding: 10 20;
+    -fx-border-radius: 5;
+
+}

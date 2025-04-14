@@ -38,6 +38,11 @@ public class VRController {
     private PrestamoModelo prestamoModelo = new PrestamoModelo();
     private ObservableList<PrestamoModelo> prestamoModeloData = FXCollections.observableArrayList();
     private String dniUsuarioSeleccionado;
+    private Stage ventana;
+
+    public void setVentana(Stage ventana) {
+        this.ventana = ventana;
+    }
 
     public void setMain(Main main) {
         this.main = main;

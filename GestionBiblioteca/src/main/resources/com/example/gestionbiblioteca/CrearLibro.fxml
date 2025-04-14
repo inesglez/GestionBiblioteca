@@ -11,7 +11,7 @@
 <AnchorPane prefHeight="568.0" prefWidth="601.0" stylesheets="@styles/CrearLibro.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.gestionbiblioteca.controller.CrearLibroController">
     <children>
         <!-- Título -->
-        <Label layoutX="214.0" layoutY="46.0" text="Crear Libro">
+        <Label layoutX="214.0" layoutY="46.0" text="Añadir Libro">
             <font>
                 <Font name="System Bold" size="25.0" />
             </font>

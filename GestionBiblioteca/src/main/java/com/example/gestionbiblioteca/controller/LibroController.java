@@ -1,7 +1,7 @@
 package com.example.gestionbiblioteca.controller;
 
-import com.example.gestionbiblioteca.modelo.LibroVO;
 import com.example.gestionbiblioteca.modelo.LibroModelo;
+import com.example.gestionbiblioteca.modelo.LibroVO;
 import com.example.gestionbiblioteca.modelo.repository.impl.LibroRepositoryImpl;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -9,7 +9,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
@@ -23,9 +22,12 @@ public class LibroController {
     private TableColumn<LibroModelo, String> columnaTitulo;
     @FXML
     private TableColumn<LibroModelo, String> columnaAutor;
+    @FXML
+    private TableColumn<LibroModelo, Integer> columnaAnio;
+
 
     @FXML
-    private TextField ponerIdLibro;
+    private TextField ponerId;
     @FXML
     private TextField ponerTitulo;
     @FXML
@@ -35,9 +37,9 @@ public class LibroController {
     @FXML
     private TextField ponerEditorial;
     @FXML
-    private CheckBox ponerDisponible;
-    @FXML
     private TextField ponerPortada;
+    @FXML
+    private CheckBox ponerDisponible;
 
     @FXML
     private Button botonNuevoLibro;
@@ -59,9 +61,18 @@ public class LibroController {
         // Inicializar las columnas de la tabla
         columnaTitulo.setCellValueFactory(cellData -> cellData.getValue().tituloProperty());
         columnaAutor.setCellValueFactory(cellData -> cellData.getValue().autorProperty());
+        columnaAnio.setCellValueFactory(cellData -> cellData.getValue().anioPublicacionProperty().asObject());
+
 
         // Cargar los libros
         cargarLibros();
+
+        // Listener para seleccionar un libro de la tabla
+        tablaLibros.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue != null) {
+                rellenarCamposFormulario(newValue);
+            }
+        });
     }
 
     private void cargarLibros() {
@@ -88,6 +99,17 @@ public class LibroController {
         }
     }
 
+    // Rellenar los campos del formulario con los datos del libro seleccionado
+    private void rellenarCamposFormulario(LibroModelo libro) {
+        ponerId.setText(String.valueOf(libro.getIdLibro()));
+        ponerTitulo.setText(libro.getTitulo());
+        ponerAutor.setText(libro.getAutor());
+        ponerAnioPublicacion.setText(String.valueOf(libro.getAnioPublicacion()));
+        ponerEditorial.setText(libro.getEditorial());
+        ponerPortada.setText(libro.getPortada());
+        ponerDisponible.setSelected(libro.isDisponible());
+    }
+
     @FXML
     private void botonEditarLibro() {
         // Verificar si un libro ha sido seleccionado en la tabla
@@ -98,13 +120,13 @@ public class LibroController {
         }
 
         // Obtener los datos del formulario
-        int idLibro = Integer.parseInt(ponerIdLibro.getText());
+        int idLibro = Integer.parseInt(ponerId.getText());
         String titulo = ponerTitulo.getText();
         String autor = ponerAutor.getText();
         int anioPublicacion = Integer.parseInt(ponerAnioPublicacion.getText());
         String editorial = ponerEditorial.getText();
-        boolean disponible = ponerDisponible.isSelected();
         String portada = ponerPortada.getText();
+        boolean disponible = ponerDisponible.isSelected();
 
         // Validar que los campos no estén vacíos
         if (titulo.isEmpty() || autor.isEmpty() || editorial.isEmpty() || portada.isEmpty()) {
@@ -129,7 +151,6 @@ public class LibroController {
             mostrarAlerta("Error", "No se pudo editar el libro.");
         }
     }
-
     @FXML
     private void botonVerDetalles() {
         // Verificar si un libro ha sido seleccionado en la tabla
@@ -163,8 +184,6 @@ public class LibroController {
             e.printStackTrace();
         }
     }
-
-
     @FXML
     private void botonEliminarLibro() {
         // Verificar si un libro ha sido seleccionado en la tabla
@@ -204,12 +223,12 @@ public class LibroController {
 
     private void limpiarCampos() {
         // Limpiar los campos de entrada
-        ponerIdLibro.clear();
+        ponerId.clear();
         ponerTitulo.clear();
         ponerAutor.clear();
         ponerAnioPublicacion.clear();
         ponerEditorial.clear();
-        ponerDisponible.setSelected(false);
         ponerPortada.clear();
+        ponerDisponible.setSelected(false);
     }
 }

@@ -74,7 +74,7 @@ public class MainController {
             // Mostrar mensaje de error si no se puede cargar la vista
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error");
-            alert.setHeaderText("No se pudo abrir la ventana de creación de prestamos");
+            alert.setHeaderText("No se pudo abrir la ventana de creación de usuarios");
             alert.showAndWait();
         }
     }
@@ -175,9 +175,34 @@ public class MainController {
 
     @FXML
     private void historialPrestamos() {
-        System.out.println("Historial de Préstamos");
-    }
+        try {
+            // Cargar el FXML de CrearUsuario
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/gestionbiblioteca/VR.fxml"));
+            AnchorPane root = loader.load();
 
+            // Obtener el controlador de la vista cargada
+            VRController controller = loader.getController();
+
+            // Crear la escena y la ventana
+            Stage stage = new Stage();
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.setTitle("Listar Prestamos");
+
+            // Pasar el Stage al controlador
+            controller.setVentana(stage);
+
+            // Mostrar la ventana
+            stage.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+            // Mostrar mensaje de error si no se puede cargar la vista
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText("No se pudo abrir la ventana de visualización de Prestamos");
+            alert.showAndWait();
+        }
+    }
     @FXML
     private void buscar() {
         String query = searchField.getText();
