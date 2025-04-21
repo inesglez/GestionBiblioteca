@@ -14,7 +14,7 @@ public class DetallesPrestamoController {
     @FXML
     private Label labelFechaDevolucion;
     @FXML
-    private Label labelLibro;
+    private Label labelLibro; // Esta etiqueta ahora mostrará el idLibro, no el nombre
     @FXML
     private Label labelUsuario;
 
@@ -29,10 +29,9 @@ public class DetallesPrestamoController {
         labelCodigo.setText(String.valueOf(prestamo.getIdPrestamo())); // Convertir int a String
         labelFechaPrestamo.setText(prestamo.getFechaPrestamo().toString());
         labelFechaDevolucion.setText(prestamo.getFechaDevolucion().toString());
-        labelLibro.setText(prestamo.getLibro());
+        labelLibro.setText(String.valueOf(prestamo.getIdLibro())); // Mostrar el idLibro en lugar del nombre del libro
         labelUsuario.setText(prestamo.getDniUsuario());
     }
-
 
     // Método para cerrar la ventana de detalles
     @FXML

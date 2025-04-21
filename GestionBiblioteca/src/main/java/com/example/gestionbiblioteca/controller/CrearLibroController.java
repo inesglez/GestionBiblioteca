@@ -40,6 +40,14 @@ public class CrearLibroController {
                 return;
             }
 
+            // Validar que el año de publicación sea un número
+            try {
+                Integer.parseInt(ponerAnioPublicacion.getText());
+            } catch (NumberFormatException e) {
+                mostrarAlerta("Error", "El año de publicación debe ser un número.");
+                return;
+            }
+
             // Obtiene el siguiente ID disponible para el libro
             int idLibro = libroRepository.lastId() + 1;  // Asigna el siguiente ID
 
@@ -51,6 +59,7 @@ public class CrearLibroController {
 
             // Marca el formulario como confirmado y cierra la ventana
             botonConfirmado = true;
+            mostrarAlerta("Éxito", "Libro creado con éxito.");
             ventana.close();
 
         } catch (ExceptionLibro e) {
@@ -70,7 +79,8 @@ public class CrearLibroController {
     }
 
     private void mostrarAlerta(String titulo, String mensaje) {
-        Alert alerta = new Alert(Alert.AlertType.ERROR);
+        // Cambiar el tipo de alerta de ERROR a INFORMATION para mostrar el icono de éxito (check)
+        Alert alerta = new Alert(Alert.AlertType.INFORMATION);
         alerta.setTitle(titulo);
         alerta.setHeaderText(null);
         alerta.setContentText(mensaje);

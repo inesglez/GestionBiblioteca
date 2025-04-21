@@ -11,23 +11,23 @@ import java.sql.Date;
 public class Prestamo {
     private IntegerProperty idPrestamo;
     private StringProperty dniUsuario;
-    private StringProperty libro;
+    private IntegerProperty idLibro; // Cambio de tipo a Integer para el idLibro
     private Date fechaPrestamo;
     private Date fechaDevolucion;
 
     // Constructor con todos los parámetros
-    public Prestamo(int idPrestamo, String dniUsuario, String libro, Date fechaPrestamo, Date fechaDevolucion) {
+    public Prestamo(int idPrestamo, String dniUsuario, int idLibro, Date fechaPrestamo, Date fechaDevolucion) {
         this.idPrestamo = new SimpleIntegerProperty(idPrestamo);
         this.dniUsuario = new SimpleStringProperty(dniUsuario);
-        this.libro = new SimpleStringProperty(libro);
+        this.idLibro = new SimpleIntegerProperty(idLibro); // Ahora usamos idLibro como Integer
         this.fechaPrestamo = fechaPrestamo;
         this.fechaDevolucion = fechaDevolucion;
     }
 
     // Constructor sin ID para nuevos préstamos
-    public Prestamo(String dniUsuario, String libro, Date fechaPrestamo, Date fechaDevolucion) {
+    public Prestamo(String dniUsuario, int idLibro, Date fechaPrestamo, Date fechaDevolucion) {
         this.dniUsuario = new SimpleStringProperty(dniUsuario);
-        this.libro = new SimpleStringProperty(libro);
+        this.idLibro = new SimpleIntegerProperty(idLibro); // Ahora usamos idLibro como Integer
         this.fechaPrestamo = fechaPrestamo;
         this.fechaDevolucion = fechaDevolucion;
     }
@@ -57,16 +57,16 @@ public class Prestamo {
         return dniUsuario;
     }
 
-    public String getLibro() {
-        return libro.get();
+    public int getIdLibro() {
+        return idLibro.get(); // Método actualizado para obtener idLibro
     }
 
-    public void setLibro(String libro) {
-        this.libro.set(libro);
+    public void setIdLibro(int idLibro) {
+        this.idLibro.set(idLibro); // Método actualizado para establecer idLibro
     }
 
-    public StringProperty libroProperty() {
-        return libro;
+    public IntegerProperty idLibroProperty() {
+        return idLibro; // Método actualizado para idLibro
     }
 
     public Date getFechaPrestamo() {
@@ -90,7 +90,7 @@ public class Prestamo {
         return "Prestamo{" +
                 "idPrestamo=" + idPrestamo.get() +
                 ", dniUsuario='" + dniUsuario.get() + '\'' +
-                ", libro='" + libro.get() + '\'' +
+                ", idLibro=" + idLibro.get() + // Actualizado para mostrar idLibro
                 ", fechaPrestamo=" + fechaPrestamo +
                 ", fechaDevolucion=" + fechaDevolucion +
                 '}';

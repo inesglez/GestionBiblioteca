@@ -4,6 +4,7 @@ import com.example.gestionbiblioteca.modelo.repository.impl.Conexion;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
+
 import java.sql.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -14,30 +15,34 @@ public class PrestamoModelo {
     private SimpleStringProperty dniUsuario;
     private SimpleObjectProperty<LocalDate> fechaPrestamo;
     private SimpleObjectProperty<LocalDate> fechaDevolucion;
-    private SimpleStringProperty libro;
+    private SimpleIntegerProperty idLibro;
 
     public PrestamoModelo() {
         this.idPrestamo = new SimpleIntegerProperty();
         this.dniUsuario = new SimpleStringProperty();
         this.fechaPrestamo = new SimpleObjectProperty<>();
         this.fechaDevolucion = new SimpleObjectProperty<>();
-        this.libro = new SimpleStringProperty();
+        this.idLibro = new SimpleIntegerProperty();
     }
 
-    public PrestamoModelo(String dniUsuario, LocalDate fechaPrestamo, LocalDate fechaDevolucion, String libro) {
+    public PrestamoModelo(String dniUsuario, LocalDate fechaPrestamo, LocalDate fechaDevolucion, int idLibro) {
         this();
         this.dniUsuario.set(dniUsuario);
         this.fechaPrestamo.set(fechaPrestamo);
         this.fechaDevolucion.set(fechaDevolucion);
-        this.libro.set(libro);
+        this.idLibro.set(idLibro);
     }
 
     public int getIdPrestamo() {
         return idPrestamo.get();
     }
 
-    public SimpleIntegerProperty idPrestamoProperty() {
-        return idPrestamo;
+    public int getIdLibro() {
+        return idLibro.get();
+    }
+
+    public void setIdLibro(int idLibro) {
+        this.idLibro.set(idLibro);
     }
 
     public String getDniUsuario() {
@@ -64,15 +69,15 @@ public class PrestamoModelo {
         this.fechaDevolucion.set(fechaDevolucion);
     }
 
-    public String getLibro() {
-        return libro.get();
+    // Property methods
+    public SimpleIntegerProperty idPrestamoProperty() {
+        return idPrestamo;
     }
 
-    public void setLibro(String libro) {
-        this.libro.set(libro);
+    public SimpleStringProperty dniUsuarioProperty() {
+        return dniUsuario;
     }
 
-    // Métodos Property
     public SimpleObjectProperty<LocalDate> fechaPrestamoProperty() {
         return fechaPrestamo;
     }
@@ -81,8 +86,8 @@ public class PrestamoModelo {
         return fechaDevolucion;
     }
 
-    public SimpleStringProperty libroProperty() {
-        return libro;
+    public SimpleIntegerProperty idLibroProperty() {
+        return idLibro;
     }
 
     public List<PrestamoModelo> obtenerListaPrestamos() throws SQLException {
@@ -97,7 +102,7 @@ public class PrestamoModelo {
                         rs.getString("dniUsuario"),
                         rs.getDate("fechaPrestamo").toLocalDate(),
                         rs.getDate("fechaDevolucion").toLocalDate(),
-                        rs.getString("libro")
+                        rs.getInt("idLibro")
                 );
                 prestamo.idPrestamo.set(rs.getInt("idPrestamo"));
                 lista.add(prestamo);
@@ -110,14 +115,14 @@ public class PrestamoModelo {
     }
 
     public void anadirPrestamo(PrestamoModelo prestamo) throws SQLException {
-        String sql = "INSERT INTO prestamos (dniUsuario, fechaPrestamo, fechaDevolucion, libro) VALUES (?, ?, ?, ?)";
+        String sql = "INSERT INTO prestamos (dniUsuario, fechaPrestamo, fechaDevolucion, idLibro) VALUES (?, ?, ?, ?)";
         Conexion conexion = new Conexion();
         try (Connection conn = conexion.conectarBD();
              PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             stmt.setString(1, prestamo.getDniUsuario());
             stmt.setDate(2, Date.valueOf(prestamo.getFechaPrestamo()));
             stmt.setDate(3, Date.valueOf(prestamo.getFechaDevolucion()));
-            stmt.setString(4, prestamo.getLibro());
+            stmt.setInt(4, prestamo.getIdLibro());
             stmt.executeUpdate();
             try (ResultSet generatedKeys = stmt.getGeneratedKeys()) {
                 if (generatedKeys.next()) {
@@ -131,13 +136,13 @@ public class PrestamoModelo {
     }
 
     public void editarPrestamo(PrestamoModelo prestamo) throws SQLException {
-        String sql = "UPDATE prestamos SET fechaPrestamo = ?, fechaDevolucion = ?, libro = ? WHERE idPrestamo = ?";
+        String sql = "UPDATE prestamos SET fechaPrestamo = ?, fechaDevolucion = ?, idLibro = ? WHERE idPrestamo = ?";
         Conexion conexion = new Conexion();
         try (Connection conn = conexion.conectarBD();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setDate(1, Date.valueOf(prestamo.getFechaPrestamo()));
             stmt.setDate(2, Date.valueOf(prestamo.getFechaDevolucion()));
-            stmt.setString(3, prestamo.getLibro());
+            stmt.setInt(3, prestamo.getIdLibro());
             stmt.setInt(4, prestamo.getIdPrestamo());
             stmt.executeUpdate();
         } catch (SQLException e) {
