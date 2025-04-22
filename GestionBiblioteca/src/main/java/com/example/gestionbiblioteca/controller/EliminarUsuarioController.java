@@ -21,9 +21,9 @@ public class EliminarUsuarioController {
 
     @FXML
     private void botonEliminar() {
-        String dniUsuario = ponerId.getText();
+        String dni = ponerId.getText();
 
-        if (dniUsuario.isEmpty()) {
+        if (dni.isEmpty()) {
             mostrarAlerta("Error", "El campo de DNI es obligatorio.");
             return;
         }
@@ -32,11 +32,11 @@ public class EliminarUsuarioController {
         Alert alerta = new Alert(Alert.AlertType.CONFIRMATION);
         alerta.setTitle("Confirmación");
         alerta.setHeaderText(null);
-        alerta.setContentText("¿Está seguro de que desea eliminar al usuario con DNI " + dniUsuario + "?");
+        alerta.setContentText("¿Está seguro de que desea eliminar al usuario con DNI " + dni + "?");
 
         if (alerta.showAndWait().get() == ButtonType.OK) {
             try {
-                usuarioRepository.deleteUsuario(dniUsuario);
+                usuarioRepository.deleteUsuario(dni);
                 botonConfirmado = true;
                 ventana.close();
             } catch (Exception e) {

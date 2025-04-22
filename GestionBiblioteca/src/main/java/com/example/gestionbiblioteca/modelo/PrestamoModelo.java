@@ -12,22 +12,22 @@ import java.util.List;
 
 public class PrestamoModelo {
     private SimpleIntegerProperty idPrestamo;
-    private SimpleStringProperty dniUsuario;
+    private SimpleStringProperty dni;
     private SimpleObjectProperty<LocalDate> fechaPrestamo;
     private SimpleObjectProperty<LocalDate> fechaDevolucion;
     private SimpleIntegerProperty idLibro;
 
     public PrestamoModelo() {
         this.idPrestamo = new SimpleIntegerProperty();
-        this.dniUsuario = new SimpleStringProperty();
+        this.dni = new SimpleStringProperty();
         this.fechaPrestamo = new SimpleObjectProperty<>();
         this.fechaDevolucion = new SimpleObjectProperty<>();
         this.idLibro = new SimpleIntegerProperty();
     }
 
-    public PrestamoModelo(String dniUsuario, LocalDate fechaPrestamo, LocalDate fechaDevolucion, int idLibro) {
+    public PrestamoModelo(String dni, LocalDate fechaPrestamo, LocalDate fechaDevolucion, int idLibro) {
         this();
-        this.dniUsuario.set(dniUsuario);
+        this.dni.set(dni);
         this.fechaPrestamo.set(fechaPrestamo);
         this.fechaDevolucion.set(fechaDevolucion);
         this.idLibro.set(idLibro);
@@ -45,12 +45,12 @@ public class PrestamoModelo {
         this.idLibro.set(idLibro);
     }
 
-    public String getDniUsuario() {
-        return dniUsuario.get();
+    public String getDni() {  // Cambiado de getdni() a getDni()
+        return dni.get();
     }
 
-    public void setDniUsuario(String dniUsuario) {
-        this.dniUsuario.set(dniUsuario);
+    public void setDni(String dni) {  // Cambiado de setdni() a setDni()
+        this.dni.set(dni);
     }
 
     public LocalDate getFechaPrestamo() {
@@ -74,8 +74,8 @@ public class PrestamoModelo {
         return idPrestamo;
     }
 
-    public SimpleStringProperty dniUsuarioProperty() {
-        return dniUsuario;
+    public SimpleStringProperty dniProperty() {
+        return dni;
     }
 
     public SimpleObjectProperty<LocalDate> fechaPrestamoProperty() {
@@ -99,7 +99,7 @@ public class PrestamoModelo {
              ResultSet rs = stmt.executeQuery()) {
             while (rs.next()) {
                 PrestamoModelo prestamo = new PrestamoModelo(
-                        rs.getString("dniUsuario"),
+                        rs.getString("dni"),
                         rs.getDate("fechaPrestamo").toLocalDate(),
                         rs.getDate("fechaDevolucion").toLocalDate(),
                         rs.getInt("idLibro")
@@ -115,11 +115,11 @@ public class PrestamoModelo {
     }
 
     public void anadirPrestamo(PrestamoModelo prestamo) throws SQLException {
-        String sql = "INSERT INTO prestamos (dniUsuario, fechaPrestamo, fechaDevolucion, idLibro) VALUES (?, ?, ?, ?)";
+        String sql = "INSERT INTO prestamos (dni, fechaPrestamo, fechaDevolucion, idLibro) VALUES (?, ?, ?, ?)";
         Conexion conexion = new Conexion();
         try (Connection conn = conexion.conectarBD();
              PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
-            stmt.setString(1, prestamo.getDniUsuario());
+            stmt.setString(1, prestamo.getDni());  // Cambiado de prestamo.getdni() a prestamo.getDni()
             stmt.setDate(2, Date.valueOf(prestamo.getFechaPrestamo()));
             stmt.setDate(3, Date.valueOf(prestamo.getFechaDevolucion()));
             stmt.setInt(4, prestamo.getIdLibro());

@@ -8,7 +8,7 @@ import java.util.List;
 
 public class UsuarioModelo {
 
-    private final StringProperty dni;
+    private final StringProperty dni;  // Campo dni
     private final StringProperty nombre;
     private final StringProperty apellidos;
     private final StringProperty direccion;
@@ -25,7 +25,7 @@ public class UsuarioModelo {
 
     // Constructor con datos iniciales
     public UsuarioModelo(String dni, String nombre, String apellidos, String direccion, String localidad, String provincia) {
-        this.dni = new SimpleStringProperty(dni);
+        this.dni = new SimpleStringProperty(dni);  // Cambiado a dni
         this.nombre = new SimpleStringProperty(nombre);
         this.apellidos = new SimpleStringProperty(apellidos);
         this.direccion = new SimpleStringProperty(direccion);
@@ -58,17 +58,13 @@ public class UsuarioModelo {
     public void mostrarPrestamos() {
         for (PrestamoVO prestamo : prestamos) {
             System.out.println("ID Préstamo: " + prestamo.getIdPrestamo());
-            System.out.println("DNI Usuario: " + prestamo.getDniUsuario());
+            System.out.println("DNI Usuario: " + prestamo.getDni());  // Cambiado a getDni() en lugar de getDniUsuario()
             System.out.println("Fecha Préstamo: " + prestamo.getFechaPrestamo());
             System.out.println("Fecha Devolución: " + prestamo.getFechaDevolucion());
-            System.out.println("ID Libro Prestado: " + prestamo.getIdLibro()); // Cambiar ISBN_libro por idLibro
+            System.out.println("ID Libro Prestado: " + prestamo.getIdLibro());  // Cambiado a idLibro
             System.out.println();
         }
     }
-
-    /*
-     * RESTO DE MÉTODOS
-     */
 
     // Getters y Setters para nombre
     public String getNombre() {

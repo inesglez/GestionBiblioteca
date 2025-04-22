@@ -2,20 +2,16 @@ package com.example.gestionbiblioteca.controller;
 
 import com.example.gestionbiblioteca.Main;
 import com.example.gestionbiblioteca.modelo.PrestamoModelo;
-import com.example.gestionbiblioteca.modelo.repository.impl.Conexion;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import javafx.scene.layout.Region;
 import javafx.stage.Stage;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -37,7 +33,7 @@ public class VRController {
     private Main main;
     private PrestamoModelo prestamoModelo = new PrestamoModelo();
     private ObservableList<PrestamoModelo> prestamoModeloData = FXCollections.observableArrayList();
-    private String dniUsuarioSeleccionado;
+    private String dniSeleccionado;
     private Stage ventana;
 
     public void setVentana(Stage ventana) {
@@ -49,8 +45,8 @@ public class VRController {
         cargarDatosPrestamos();
     }
 
-    public String getDniUsuarioSeleccionado() {
-        return dniUsuarioSeleccionado;
+    public String getdniSeleccionado() {
+        return dniSeleccionado;
     }
 
     @FXML
@@ -134,19 +130,5 @@ public class VRController {
         alert.setHeaderText(null);
         alert.setContentText(mensaje);
         alert.showAndWait();
-    }
-
-    public void eliminarTarjetasPrestamo(int idPrestamo) {
-        // Usamos la clase Conexion para obtener la conexión
-        try (Connection conn = new Conexion().conectarBD()) {
-            String sql = "DELETE FROM tarjetas WHERE idPrestamo = ?";
-            try (PreparedStatement stmt = conn.prepareStatement(sql)) {
-                stmt.setInt(1, idPrestamo);
-                stmt.executeUpdate();
-            }
-        } catch (SQLException e) {
-            mostrarAlerta("Error", "No se pudieron eliminar las tarjetas asociadas al préstamo: " + e.getMessage());
-            e.printStackTrace();
-        }
     }
 }

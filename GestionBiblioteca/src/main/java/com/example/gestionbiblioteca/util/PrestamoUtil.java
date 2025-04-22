@@ -13,7 +13,7 @@ public class PrestamoUtil {
         List<PrestamoModelo> prestamosModelo = new ArrayList<>();
         for (PrestamoVO prestamoVO : prestamosVO) {
             prestamosModelo.add(new PrestamoModelo(
-                    prestamoVO.getDniUsuario(),
+                    prestamoVO.getDni(), // Cambiado de getDniUsuario() a getDni()
                     prestamoVO.getFechaPrestamo(),
                     prestamoVO.getFechaDevolucion(),
                     prestamoVO.getIdLibro()  // Usamos el idLibro en lugar de libroPrestado
@@ -31,7 +31,7 @@ public class PrestamoUtil {
                     prestamoModelo.getFechaPrestamo(),
                     prestamoModelo.getFechaDevolucion(),
                     prestamoModelo.getIdLibro(),  // Usamos el idLibro en lugar de libro
-                    prestamoModelo.getDniUsuario()
+                    prestamoModelo.getDni() // Cambiado de getDniUsuario() a getDni()
             ));
         }
         return prestamosVO;
@@ -44,14 +44,14 @@ public class PrestamoUtil {
                 prestamoModelo.getFechaPrestamo(),
                 prestamoModelo.getFechaDevolucion(),
                 prestamoModelo.getIdLibro(),  // Usamos el idLibro en lugar de libro
-                prestamoModelo.getDniUsuario()
+                prestamoModelo.getDni() // Cambiado de getDniUsuario() a getDni()
         );
     }
 
     // Convierte un solo PrestamoVO a PrestamoModelo
     public static PrestamoModelo convertirModelo(PrestamoVO prestamoVO) {
         return new PrestamoModelo(
-                prestamoVO.getDniUsuario(),
+                prestamoVO.getDni(), // Cambiado de getDniUsuario() a getDni()
                 prestamoVO.getFechaPrestamo(),
                 prestamoVO.getFechaDevolucion(),
                 prestamoVO.getIdLibro()  // Usamos el idLibro en lugar de libroPrestado

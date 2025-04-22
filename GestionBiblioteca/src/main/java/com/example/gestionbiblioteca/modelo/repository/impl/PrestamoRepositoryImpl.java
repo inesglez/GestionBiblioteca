@@ -26,7 +26,7 @@ public class PrestamoRepositoryImpl implements PrestamoRepository {
                         rs.getDate("fecha_prestamo").toLocalDate(),
                         rs.getDate("fecha_devolucion") != null ? rs.getDate("fecha_devolucion").toLocalDate() : null,
                         rs.getInt("id_libro"),
-                        rs.getString("DNI_usuario")
+                        rs.getString("DNI_usuario") // Cambiado de dniUsuario a dni
                 );
                 prestamosVO.add(prestamo);
             }
@@ -44,7 +44,7 @@ public class PrestamoRepositoryImpl implements PrestamoRepository {
         String sql = "INSERT INTO prestamos (DNI_usuario, id_libro, fecha_prestamo, fecha_devolucion) VALUES (?, ?, ?, ?)";
         try (Connection conn = this.conexion.conectarBD();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
-            stmt.setString(1, prestamo.getDniUsuario());
+            stmt.setString(1, prestamo.getDni()); // Cambiado de getDniUsuario() a getDni()
             stmt.setInt(2, prestamo.getIdLibro()); // Usar el id_libro
             stmt.setDate(3, Date.valueOf(prestamo.getFechaPrestamo()));
             stmt.setDate(4, prestamo.getFechaDevolucion() != null ? Date.valueOf(prestamo.getFechaDevolucion()) : null);
@@ -74,7 +74,7 @@ public class PrestamoRepositoryImpl implements PrestamoRepository {
         String sql = "UPDATE prestamos SET DNI_usuario = ?, id_libro = ?, fecha_prestamo = ?, fecha_devolucion = ? WHERE id = ?";
         try (Connection conn = this.conexion.conectarBD();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
-            stmt.setString(1, prestamo.getDniUsuario());
+            stmt.setString(1, prestamo.getDni()); // Cambiado de getDniUsuario() a getDni()
             stmt.setInt(2, prestamo.getIdLibro()); // Usar el id_libro
             stmt.setDate(3, Date.valueOf(prestamo.getFechaPrestamo()));
             stmt.setDate(4, prestamo.getFechaDevolucion() != null ? Date.valueOf(prestamo.getFechaDevolucion()) : null);
@@ -156,7 +156,7 @@ public class PrestamoRepositoryImpl implements PrestamoRepository {
         int count = 0;
         try (Connection conn = this.conexion.conectarBD();
              PreparedStatement stmt = conn.prepareStatement("SELECT COUNT(*) FROM prestamos WHERE DNI_usuario = ?")) {
-            stmt.setString(1, prestamo.getDniUsuario());
+            stmt.setString(1, prestamo.getDni()); // Cambiado de getDniUsuario() a getDni()
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
                 count = rs.getInt(1);
@@ -173,7 +173,7 @@ public class PrestamoRepositoryImpl implements PrestamoRepository {
         List<PrestamoModelo> prestamosModelo = new ArrayList<>();
         for (PrestamoVO prestamoVO : prestamosVO) {
             prestamosModelo.add(new PrestamoModelo(
-                    prestamoVO.getDniUsuario(),
+                    prestamoVO.getDni(), // Cambiado de getDniUsuario() a getDni()
                     prestamoVO.getFechaPrestamo(),
                     prestamoVO.getFechaDevolucion(),
                     prestamoVO.getIdLibro()  // Usamos el idLibro en lugar de libroPrestado

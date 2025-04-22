@@ -21,6 +21,7 @@
                             <columns>
                                 <TableColumn fx:id="columnaCodigo" text="Código" prefWidth="100.0" styleClass="table-column"/>
                                 <TableColumn fx:id="columnaFechaPrestamo" text="Fecha Préstamo" prefWidth="200.0" styleClass="table-column"/>
+                                <TableColumn fx:id="columnaFechaDevolucion" text="Fecha Devolución" prefWidth="200.0" styleClass="table-column"/>
                             </columns>
                         </TableView>
                     </children>

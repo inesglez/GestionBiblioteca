@@ -41,23 +41,23 @@
                                         <Label text="Id" GridPane.rowIndex="0" styleClass="label"/>
                                         <TextField fx:id="ponerId" GridPane.rowIndex="0" GridPane.columnIndex="1" styleClass="input-field"/>
 
-                                        <Label text="Título" GridPane.rowIndex="0" styleClass="label"/>
-                                        <TextField fx:id="ponerTitulo" GridPane.rowIndex="0" GridPane.columnIndex="1" styleClass="input-field"/>
+                                        <Label text="Título" GridPane.rowIndex="1" styleClass="label"/>
+                                        <TextField fx:id="ponerTitulo" GridPane.rowIndex="1" GridPane.columnIndex="1" styleClass="input-field"/>
 
-                                        <Label text="Autor" GridPane.rowIndex="1" styleClass="label"/>
-                                        <TextField fx:id="ponerAutor" GridPane.rowIndex="1" GridPane.columnIndex="1" styleClass="input-field"/>
+                                        <Label text="Autor" GridPane.rowIndex="2" styleClass="label"/>
+                                        <TextField fx:id="ponerAutor" GridPane.rowIndex="2" GridPane.columnIndex="1" styleClass="input-field"/>
 
-                                        <Label text="Año Publicación" GridPane.rowIndex="2" styleClass="label"/>
-                                        <TextField fx:id="ponerAnioPublicacion" GridPane.rowIndex="2" GridPane.columnIndex="1" styleClass="input-field"/>
+                                        <Label text="Año Publicación" GridPane.rowIndex="3" styleClass="label"/>
+                                        <TextField fx:id="ponerAnioPublicacion" GridPane.rowIndex="3" GridPane.columnIndex="1" styleClass="input-field"/>
 
-                                        <Label text="Editorial" GridPane.rowIndex="3" styleClass="label"/>
-                                        <TextField fx:id="ponerEditorial" GridPane.rowIndex="3" GridPane.columnIndex="1" styleClass="input-field"/>
+                                        <Label text="Editorial" GridPane.rowIndex="4" styleClass="label"/>
+                                        <TextField fx:id="ponerEditorial" GridPane.rowIndex="4" GridPane.columnIndex="1" styleClass="input-field"/>
 
-                                        <Label text="Portada" GridPane.rowIndex="4" styleClass="label"/>
-                                        <TextField fx:id="ponerPortada" GridPane.rowIndex="4" GridPane.columnIndex="1" styleClass="input-field"/>
+                                        <Label text="Portada" GridPane.rowIndex="5" styleClass="label"/>
+                                        <TextField fx:id="ponerPortada" GridPane.rowIndex="5" GridPane.columnIndex="1" styleClass="input-field"/>
 
-                                        <Label text="Disponible" GridPane.rowIndex="5" styleClass="label"/>
-                                        <CheckBox fx:id="ponerDisponible" GridPane.rowIndex="5" GridPane.columnIndex="1" styleClass="input-field"/>
+                                        <Label text="Disponible" GridPane.rowIndex="6" styleClass="label"/>
+                                        <CheckBox fx:id="ponerDisponible" GridPane.rowIndex="6" GridPane.columnIndex="1" styleClass="input-field"/>
                                     </children>
                                 </GridPane>
 

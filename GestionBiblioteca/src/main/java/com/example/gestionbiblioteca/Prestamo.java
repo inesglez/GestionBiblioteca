@@ -10,23 +10,23 @@ import java.sql.Date;
 // Clase para gestionar los préstamos en la biblioteca
 public class Prestamo {
     private IntegerProperty idPrestamo;
-    private StringProperty dniUsuario;
+    private StringProperty dni;
     private IntegerProperty idLibro; // Cambio de tipo a Integer para el idLibro
     private Date fechaPrestamo;
     private Date fechaDevolucion;
 
     // Constructor con todos los parámetros
-    public Prestamo(int idPrestamo, String dniUsuario, int idLibro, Date fechaPrestamo, Date fechaDevolucion) {
+    public Prestamo(int idPrestamo, String dni, int idLibro, Date fechaPrestamo, Date fechaDevolucion) {
         this.idPrestamo = new SimpleIntegerProperty(idPrestamo);
-        this.dniUsuario = new SimpleStringProperty(dniUsuario);
+        this.dni = new SimpleStringProperty(dni);
         this.idLibro = new SimpleIntegerProperty(idLibro); // Ahora usamos idLibro como Integer
         this.fechaPrestamo = fechaPrestamo;
         this.fechaDevolucion = fechaDevolucion;
     }
 
     // Constructor sin ID para nuevos préstamos
-    public Prestamo(String dniUsuario, int idLibro, Date fechaPrestamo, Date fechaDevolucion) {
-        this.dniUsuario = new SimpleStringProperty(dniUsuario);
+    public Prestamo(String dni, int idLibro, Date fechaPrestamo, Date fechaDevolucion) {
+        this.dni = new SimpleStringProperty(dni);
         this.idLibro = new SimpleIntegerProperty(idLibro); // Ahora usamos idLibro como Integer
         this.fechaPrestamo = fechaPrestamo;
         this.fechaDevolucion = fechaDevolucion;
@@ -45,16 +45,16 @@ public class Prestamo {
         return idPrestamo;
     }
 
-    public String getDniUsuario() {
-        return dniUsuario.get();
+    public String getdni() {
+        return dni.get();
     }
 
-    public void setDniUsuario(String dniUsuario) {
-        this.dniUsuario.set(dniUsuario);
+    public void setdni(String dni) {
+        this.dni.set(dni);
     }
 
-    public StringProperty dniUsuarioProperty() {
-        return dniUsuario;
+    public StringProperty dniroperty() {
+        return dni;
     }
 
     public int getIdLibro() {
@@ -89,7 +89,7 @@ public class Prestamo {
     public String toString() {
         return "Prestamo{" +
                 "idPrestamo=" + idPrestamo.get() +
-                ", dniUsuario='" + dniUsuario.get() + '\'' +
+                ", dni='" + dni.get() + '\'' +
                 ", idLibro=" + idLibro.get() + // Actualizado para mostrar idLibro
                 ", fechaPrestamo=" + fechaPrestamo +
                 ", fechaDevolucion=" + fechaDevolucion +

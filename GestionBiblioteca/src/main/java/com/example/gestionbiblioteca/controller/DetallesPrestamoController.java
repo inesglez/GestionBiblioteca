@@ -30,7 +30,7 @@ public class DetallesPrestamoController {
         labelFechaPrestamo.setText(prestamo.getFechaPrestamo().toString());
         labelFechaDevolucion.setText(prestamo.getFechaDevolucion().toString());
         labelLibro.setText(String.valueOf(prestamo.getIdLibro())); // Mostrar el idLibro en lugar del nombre del libro
-        labelUsuario.setText(prestamo.getDniUsuario());
+        labelUsuario.setText(prestamo.getDni());
     }
 
     // Método para cerrar la ventana de detalles
