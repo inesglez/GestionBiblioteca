@@ -63,6 +63,13 @@
                             </HBox.margin>
                         </Button>
 
+                        <Button fx:id="btnVerGrafico" onAction="#mostrarGrafico" text="Ver Gráfico" styleClass="button-add">
+                            <HBox.margin>
+                                <Insets top="15.0" />
+                            </HBox.margin>
+                        </Button>
+
+
                         <Region HBox.hgrow="ALWAYS" />
 
                         <TextField fx:id="searchField" promptText="Buscar usuario o libro..." styleClass="search-field">

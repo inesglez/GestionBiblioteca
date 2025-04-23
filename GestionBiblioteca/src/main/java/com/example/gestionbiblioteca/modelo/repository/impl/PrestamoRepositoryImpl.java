@@ -1,13 +1,16 @@
 package com.example.gestionbiblioteca.modelo.repository.impl;
 
 import com.example.gestionbiblioteca.modelo.PrestamoVO;
-import com.example.gestionbiblioteca.modelo.PrestamoModelo; // Asegúrate de importar el modelo correspondiente
+import com.example.gestionbiblioteca.modelo.PrestamoModelo;
 import com.example.gestionbiblioteca.modelo.repository.ExceptionPrestamo;
 import com.example.gestionbiblioteca.modelo.repository.PrestamoRepository;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 public class PrestamoRepositoryImpl implements PrestamoRepository {
     private final Conexion conexion = new Conexion();
@@ -22,11 +25,11 @@ public class PrestamoRepositoryImpl implements PrestamoRepository {
 
             while (rs.next()) {
                 PrestamoVO prestamo = new PrestamoVO(
-                        rs.getInt("id"),
-                        rs.getDate("fecha_prestamo").toLocalDate(),
-                        rs.getDate("fecha_devolucion") != null ? rs.getDate("fecha_devolucion").toLocalDate() : null,
-                        rs.getInt("id_libro"),
-                        rs.getString("DNI_usuario") // Cambiado de dniUsuario a dni
+                        rs.getInt("idPrestamo"),
+                        rs.getDate("fechaPrestamo").toLocalDate(),
+                        rs.getDate("fechaDevolucion") != null ? rs.getDate("fechaDevolucion").toLocalDate() : null,
+                        rs.getString("titulo"),
+                        rs.getString("dni")
                 );
                 prestamosVO.add(prestamo);
             }
@@ -35,17 +38,16 @@ public class PrestamoRepositoryImpl implements PrestamoRepository {
             throw new ExceptionPrestamo("No se pudo obtener la lista de préstamos");
         }
 
-        // Convertir de PrestamoVO a PrestamoModelo
         return convertirModelo(prestamosVO);
     }
 
     @Override
     public void addPrestamo(PrestamoVO prestamo) throws ExceptionPrestamo {
-        String sql = "INSERT INTO prestamos (DNI_usuario, id_libro, fecha_prestamo, fecha_devolucion) VALUES (?, ?, ?, ?)";
+        String sql = "INSERT INTO prestamos (dni, titulo, fechaPrestamo, fechaDevolucion) VALUES (?, ?, ?, ?)";
         try (Connection conn = this.conexion.conectarBD();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
-            stmt.setString(1, prestamo.getDni()); // Cambiado de getDniUsuario() a getDni()
-            stmt.setInt(2, prestamo.getIdLibro()); // Usar el id_libro
+            stmt.setString(1, prestamo.getDni());
+            stmt.setString(2, prestamo.gettitulo());
             stmt.setDate(3, Date.valueOf(prestamo.getFechaPrestamo()));
             stmt.setDate(4, prestamo.getFechaDevolucion() != null ? Date.valueOf(prestamo.getFechaDevolucion()) : null);
 
@@ -58,7 +60,7 @@ public class PrestamoRepositoryImpl implements PrestamoRepository {
 
     @Override
     public void deletePrestamo(int idPrestamo) throws ExceptionPrestamo {
-        String sql = "DELETE FROM prestamos WHERE id = ?";
+        String sql = "DELETE FROM prestamos WHERE idPrestamo = ?";
         try (Connection conn = this.conexion.conectarBD();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setInt(1, idPrestamo);
@@ -71,11 +73,11 @@ public class PrestamoRepositoryImpl implements PrestamoRepository {
 
     @Override
     public void editPrestamo(PrestamoVO prestamo) throws ExceptionPrestamo {
-        String sql = "UPDATE prestamos SET DNI_usuario = ?, id_libro = ?, fecha_prestamo = ?, fecha_devolucion = ? WHERE id = ?";
+        String sql = "UPDATE prestamos SET dni = ?, titulo = ?, fechaPrestamo = ?, fechaDevolucion = ? WHERE idPrestamo = ?";
         try (Connection conn = this.conexion.conectarBD();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
-            stmt.setString(1, prestamo.getDni()); // Cambiado de getDniUsuario() a getDni()
-            stmt.setInt(2, prestamo.getIdLibro()); // Usar el id_libro
+            stmt.setString(1, prestamo.getDni());
+            stmt.setString(2, prestamo.gettitulo());
             stmt.setDate(3, Date.valueOf(prestamo.getFechaPrestamo()));
             stmt.setDate(4, prestamo.getFechaDevolucion() != null ? Date.valueOf(prestamo.getFechaDevolucion()) : null);
             stmt.setInt(5, prestamo.getIdPrestamo());
@@ -92,10 +94,10 @@ public class PrestamoRepositoryImpl implements PrestamoRepository {
         int lastPrestamoId = 0;
         try (Connection conn = this.conexion.conectarBD();
              Statement stmt = conn.createStatement()) {
-            String sql = "SELECT id FROM prestamos ORDER BY id DESC LIMIT 1";
+            String sql = "SELECT idPrestamo FROM prestamos ORDER BY idPrestamo DESC LIMIT 1";
             ResultSet rs = stmt.executeQuery(sql);
             if (rs.next()) {
-                lastPrestamoId = rs.getInt("id");
+                lastPrestamoId = rs.getInt("idPrestamo");
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -106,10 +108,10 @@ public class PrestamoRepositoryImpl implements PrestamoRepository {
 
     @Override
     public int[] countActuales() throws ExceptionPrestamo {
-        int[] count = new int[2]; // Suponiendo que el primer valor es el total de préstamos activos y el segundo es el total de préstamos
+        int[] count = new int[2];
         try (Connection conn = this.conexion.conectarBD();
              Statement stmt = conn.createStatement()) {
-            String sql = "SELECT COUNT(*) FROM prestamos WHERE fecha_devolucion IS NULL";
+            String sql = "SELECT COUNT(*) FROM prestamos WHERE fechaDevolucion IS NULL";
             ResultSet rs = stmt.executeQuery(sql);
             if (rs.next()) {
                 count[0] = rs.getInt(1);
@@ -129,20 +131,19 @@ public class PrestamoRepositoryImpl implements PrestamoRepository {
 
     @Override
     public int[] countMonthsByType(String tipo) throws ExceptionPrestamo {
-        int[] count = new int[12]; // Para contar los préstamos por cada mes
+        int[] count = new int[12];
         try (Connection conn = this.conexion.conectarBD();
              PreparedStatement stmt = conn.prepareStatement(
-                     "SELECT MONTH(fecha_prestamo) AS mes, COUNT(*) AS total FROM prestamos GROUP BY MONTH(fecha_prestamo)")) {
+                     "SELECT MONTH(fechaPrestamo) AS mes, COUNT(*) AS total FROM prestamos GROUP BY MONTH(fechaPrestamo)")) {
             ResultSet rs = stmt.executeQuery();
 
-            // Inicializamos el array con ceros (aunque Java lo hace por defecto, es bueno ser explícito)
             for (int i = 0; i < 12; i++) {
                 count[i] = 0;
             }
 
             while (rs.next()) {
                 int mes = rs.getInt("mes");
-                count[mes - 1] = rs.getInt("total"); // Los meses en MySQL son de 1 a 12, por eso se ajusta a 0-based index
+                count[mes - 1] = rs.getInt("total");
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -155,8 +156,8 @@ public class PrestamoRepositoryImpl implements PrestamoRepository {
     public int countConcretasByType(PrestamoVO prestamo) throws ExceptionPrestamo {
         int count = 0;
         try (Connection conn = this.conexion.conectarBD();
-             PreparedStatement stmt = conn.prepareStatement("SELECT COUNT(*) FROM prestamos WHERE DNI_usuario = ?")) {
-            stmt.setString(1, prestamo.getDni()); // Cambiado de getDniUsuario() a getDni()
+             PreparedStatement stmt = conn.prepareStatement("SELECT COUNT(*) FROM prestamos WHERE dni = ?")) {
+            stmt.setString(1, prestamo.getDni());
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
                 count = rs.getInt(1);
@@ -167,16 +168,30 @@ public class PrestamoRepositoryImpl implements PrestamoRepository {
         }
         return count;
     }
+    public List<Map.Entry<String, Integer>> obtenerLibrosMasPrestados() throws ExceptionPrestamo {
+        Map<String, Integer> libroCount = new HashMap<>();
+        String sql = "SELECT titulo, COUNT(*) as count FROM prestamos GROUP BY titulo ORDER BY count DESC LIMIT 10"; // top 10 libros más prestados
+        try (Connection conn = conexion.conectarBD();
+             Statement stmt = conn.createStatement();
+             ResultSet rs = stmt.executeQuery(sql)) {
+            while (rs.next()) {
+                libroCount.put(rs.getString("titulo"), rs.getInt("count"));
+            }
+        } catch (SQLException e) {
+            throw new ExceptionPrestamo("Error al obtener los libros más prestados");
+        }
+        return libroCount.entrySet().stream().collect(Collectors.toList());
+    }
 
-    // Método para convertir de PrestamoVO a PrestamoModelo
+
     public static List<PrestamoModelo> convertirModelo(List<PrestamoVO> prestamosVO) {
         List<PrestamoModelo> prestamosModelo = new ArrayList<>();
         for (PrestamoVO prestamoVO : prestamosVO) {
             prestamosModelo.add(new PrestamoModelo(
-                    prestamoVO.getDni(), // Cambiado de getDniUsuario() a getDni()
+                    prestamoVO.getDni(),
                     prestamoVO.getFechaPrestamo(),
                     prestamoVO.getFechaDevolucion(),
-                    prestamoVO.getIdLibro()  // Usamos el idLibro en lugar de libroPrestado
+                    prestamoVO.gettitulo()
             ));
         }
         return prestamosModelo;

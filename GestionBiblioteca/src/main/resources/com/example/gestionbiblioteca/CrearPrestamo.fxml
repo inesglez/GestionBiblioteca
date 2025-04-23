@@ -36,7 +36,7 @@
                 <TextField fx:id="nombrePersona" GridPane.columnIndex="1" />
 
                 <Label text="DNI" GridPane.rowIndex="1" />
-                <TextField fx:id="dniPersona" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                <TextField fx:id="dni" GridPane.columnIndex="1" GridPane.rowIndex="1" />
 
                 <Label text="Libro" GridPane.rowIndex="2" />
                 <TextField fx:id="libroPrestado" GridPane.columnIndex="1" GridPane.rowIndex="2" />

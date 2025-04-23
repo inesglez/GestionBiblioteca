@@ -208,4 +208,35 @@ public class MainController {
         String query = searchField.getText();
         System.out.println("Buscando: " + query);
     }
+    @FXML
+    private void mostrarGrafico() {
+        try {
+            // Cargar el FXML de la vista del gráfico
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/gestionbiblioteca/grafico.fxml"));
+            AnchorPane root = loader.load();
+
+            // Obtener el controlador de la vista cargada
+            GraficoController controller = loader.getController();
+
+            // Crear la escena y la ventana
+            Stage stage = new Stage();
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.setTitle("Gráfico de Libros Más Prestados");
+
+            // Pasar el Stage al controlador del gráfico
+            controller.setVentana(stage);
+
+            // Mostrar la ventana
+            stage.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+            // Mostrar mensaje de error si no se puede cargar la vista
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText("No se pudo abrir la ventana del gráfico");
+            alert.showAndWait();
+        }
+    }
+
 }

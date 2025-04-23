@@ -15,34 +15,43 @@ public class PrestamoModelo {
     private SimpleStringProperty dni;
     private SimpleObjectProperty<LocalDate> fechaPrestamo;
     private SimpleObjectProperty<LocalDate> fechaDevolucion;
-    private SimpleIntegerProperty idLibro;
+    private SimpleStringProperty titulo;
 
     public PrestamoModelo() {
         this.idPrestamo = new SimpleIntegerProperty();
         this.dni = new SimpleStringProperty();
         this.fechaPrestamo = new SimpleObjectProperty<>();
         this.fechaDevolucion = new SimpleObjectProperty<>();
-        this.idLibro = new SimpleIntegerProperty();
+        this.titulo = new SimpleStringProperty();
     }
 
-    public PrestamoModelo(String dni, LocalDate fechaPrestamo, LocalDate fechaDevolucion, int idLibro) {
+    public PrestamoModelo(String dni, LocalDate fechaPrestamo, LocalDate fechaDevolucion, String titulo) {
         this();
         this.dni.set(dni);
         this.fechaPrestamo.set(fechaPrestamo);
         this.fechaDevolucion.set(fechaDevolucion);
-        this.idLibro.set(idLibro);
+        this.titulo.set(titulo);
     }
+    public PrestamoModelo(Integer idPrestamo, String dni, LocalDate fechaPrestamo, LocalDate fechaDevolucion, String titulo) {
+        this();
+        this.idPrestamo.set(idPrestamo);
+        this.dni.set(dni);
+        this.fechaPrestamo.set(fechaPrestamo);
+        this.fechaDevolucion.set(fechaDevolucion);
+        this.titulo.set(titulo);
+    }
+
 
     public int getIdPrestamo() {
         return idPrestamo.get();
     }
 
-    public int getIdLibro() {
-        return idLibro.get();
+    public String gettitulo() {
+        return titulo.get();
     }
 
-    public void setIdLibro(int idLibro) {
-        this.idLibro.set(idLibro);
+    public void settitulo(String titulo) {
+        this.titulo.set(titulo);
     }
 
     public String getDni() {  // Cambiado de getdni() a getDni()
@@ -86,8 +95,8 @@ public class PrestamoModelo {
         return fechaDevolucion;
     }
 
-    public SimpleIntegerProperty idLibroProperty() {
-        return idLibro;
+    public SimpleStringProperty tituloProperty() {
+        return titulo;
     }
 
     public List<PrestamoModelo> obtenerListaPrestamos() throws SQLException {
@@ -99,12 +108,13 @@ public class PrestamoModelo {
              ResultSet rs = stmt.executeQuery()) {
             while (rs.next()) {
                 PrestamoModelo prestamo = new PrestamoModelo(
+                        rs.getInt("idPrestamo"),
                         rs.getString("dni"),
                         rs.getDate("fechaPrestamo").toLocalDate(),
                         rs.getDate("fechaDevolucion").toLocalDate(),
-                        rs.getInt("idLibro")
+                        rs.getString("titulo")
                 );
-                prestamo.idPrestamo.set(rs.getInt("idPrestamo"));
+              //  prestamo.idPrestamo.set(rs.getInt("idPrestamo"));
                 lista.add(prestamo);
             }
         } catch (SQLException e) {
@@ -115,14 +125,14 @@ public class PrestamoModelo {
     }
 
     public void anadirPrestamo(PrestamoModelo prestamo) throws SQLException {
-        String sql = "INSERT INTO prestamos (dni, fechaPrestamo, fechaDevolucion, idLibro) VALUES (?, ?, ?, ?)";
+        String sql = "INSERT INTO prestamos (dni, fechaPrestamo, fechaDevolucion, titulo) VALUES (?, ?, ?, ?)";
         Conexion conexion = new Conexion();
         try (Connection conn = conexion.conectarBD();
              PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             stmt.setString(1, prestamo.getDni());  // Cambiado de prestamo.getdni() a prestamo.getDni()
             stmt.setDate(2, Date.valueOf(prestamo.getFechaPrestamo()));
             stmt.setDate(3, Date.valueOf(prestamo.getFechaDevolucion()));
-            stmt.setInt(4, prestamo.getIdLibro());
+            stmt.setString(4, prestamo.gettitulo());
             stmt.executeUpdate();
             try (ResultSet generatedKeys = stmt.getGeneratedKeys()) {
                 if (generatedKeys.next()) {
@@ -136,13 +146,13 @@ public class PrestamoModelo {
     }
 
     public void editarPrestamo(PrestamoModelo prestamo) throws SQLException {
-        String sql = "UPDATE prestamos SET fechaPrestamo = ?, fechaDevolucion = ?, idLibro = ? WHERE idPrestamo = ?";
+        String sql = "UPDATE prestamos SET fechaPrestamo = ?, fechaDevolucion = ?, titulo = ? WHERE idPrestamo = ?";
         Conexion conexion = new Conexion();
         try (Connection conn = conexion.conectarBD();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setDate(1, Date.valueOf(prestamo.getFechaPrestamo()));
             stmt.setDate(2, Date.valueOf(prestamo.getFechaDevolucion()));
-            stmt.setInt(3, prestamo.getIdLibro());
+            stmt.setString(3, prestamo.gettitulo());
             stmt.setInt(4, prestamo.getIdPrestamo());
             stmt.executeUpdate();
         } catch (SQLException e) {

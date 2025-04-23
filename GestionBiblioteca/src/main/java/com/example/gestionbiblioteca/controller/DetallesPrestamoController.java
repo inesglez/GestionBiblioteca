@@ -29,7 +29,7 @@ public class DetallesPrestamoController {
         labelCodigo.setText(String.valueOf(prestamo.getIdPrestamo())); // Convertir int a String
         labelFechaPrestamo.setText(prestamo.getFechaPrestamo().toString());
         labelFechaDevolucion.setText(prestamo.getFechaDevolucion().toString());
-        labelLibro.setText(String.valueOf(prestamo.getIdLibro())); // Mostrar el idLibro en lugar del nombre del libro
+        labelLibro.setText(String.valueOf(prestamo.gettitulo())); // Mostrar el titulo en lugar del nombre del libro
         labelUsuario.setText(prestamo.getDni());
     }
 

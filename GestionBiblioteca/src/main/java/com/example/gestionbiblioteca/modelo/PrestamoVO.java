@@ -7,17 +7,17 @@ public class PrestamoVO implements Comparable<PrestamoVO> {
     private Integer idPrestamo;
     private String dni;  // Campo dni en lugar de dniUsuario
     private LocalDate fechaPrestamo, fechaDevolucion;
-    private Integer idLibro;
+    private String titulo;
 
     // Constructor vacío
     public PrestamoVO() {}
 
     // Constructor con datos iniciales
-    public PrestamoVO(Integer idPrestamo, LocalDate fechaPrestamo, LocalDate fechaDevolucion, Integer idLibro, String dni) {
+    public PrestamoVO(Integer idPrestamo, LocalDate fechaPrestamo, LocalDate fechaDevolucion, String titulo, String dni) {
         this.idPrestamo = idPrestamo;
         this.fechaPrestamo = fechaPrestamo;
         this.fechaDevolucion = fechaDevolucion;
-        this.idLibro = idLibro;
+        this.titulo = titulo;
         this.dni = dni;  // Usamos dni
     }
 
@@ -57,13 +57,13 @@ public class PrestamoVO implements Comparable<PrestamoVO> {
         this.fechaDevolucion = fechaDevolucion;
     }
 
-    // Getters y Setters para idLibro
-    public Integer getIdLibro() {
-        return idLibro;
+    // Getters y Setters para titulo
+    public String gettitulo() {
+        return titulo;
     }
 
-    public void setIdLibro(Integer idLibro) {
-        this.idLibro = idLibro;
+    public void settitulo(String titulo) {
+        this.titulo = titulo;
     }
 
     // Método toString() para representar el objeto
@@ -74,7 +74,7 @@ public class PrestamoVO implements Comparable<PrestamoVO> {
                 ", dni='" + dni + '\'' +  // Cambiado a dni
                 ", fechaPrestamo=" + fechaPrestamo +
                 ", fechaDevolucion=" + fechaDevolucion +
-                ", idLibro=" + idLibro +
+                ", titulo=" + titulo +
                 '}';
     }
 
@@ -90,7 +90,7 @@ public class PrestamoVO implements Comparable<PrestamoVO> {
         if (!dni.equals(that.dni)) return false;  // Cambiado a dni
         if (!fechaPrestamo.equals(that.fechaPrestamo)) return false;
         if (!fechaDevolucion.equals(that.fechaDevolucion)) return false;
-        return idLibro.equals(that.idLibro);
+        return titulo.equals(that.titulo);
     }
 
     // Método hashCode() para objetos con igualdad
@@ -100,7 +100,7 @@ public class PrestamoVO implements Comparable<PrestamoVO> {
         result = 31 * result + dni.hashCode();  // Cambiado a dni
         result = 31 * result + fechaPrestamo.hashCode();
         result = 31 * result + fechaDevolucion.hashCode();
-        result = 31 * result + idLibro.hashCode();
+        result = 31 * result + titulo.hashCode();
         return result;
     }
 

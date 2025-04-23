@@ -61,7 +61,7 @@ public class UsuarioModelo {
             System.out.println("DNI Usuario: " + prestamo.getDni());  // Cambiado a getDni() en lugar de getDniUsuario()
             System.out.println("Fecha Préstamo: " + prestamo.getFechaPrestamo());
             System.out.println("Fecha Devolución: " + prestamo.getFechaDevolucion());
-            System.out.println("ID Libro Prestado: " + prestamo.getIdLibro());  // Cambiado a idLibro
+            System.out.println("ID Libro Prestado: " + prestamo.gettitulo());  // Cambiado a titulo
             System.out.println();
         }
     }

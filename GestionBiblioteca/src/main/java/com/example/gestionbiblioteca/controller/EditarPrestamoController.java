@@ -15,7 +15,7 @@ public class EditarPrestamoController {
     @FXML
     private DatePicker fechaDevolucion;
     @FXML
-    private TextField idLibro; // Cambiado a TextField para recibir idLibro (entero)
+    private TextField titulo; // Cambiado a TextField para recibir titulo (entero)
     @FXML
     private Button botonGuardar;
 
@@ -27,7 +27,7 @@ public class EditarPrestamoController {
         // Cargar los datos del préstamo seleccionado
         fechaPrestamo.setValue(prestamo.getFechaPrestamo());
         fechaDevolucion.setValue(prestamo.getFechaDevolucion());
-        idLibro.setText(String.valueOf(prestamo.getIdLibro())); // Cargar el idLibro en lugar del nombre del libro
+        titulo.setText(String.valueOf(prestamo.gettitulo())); // Cargar el titulo en lugar del nombre del libro
     }
 
     @FXML
@@ -37,9 +37,9 @@ public class EditarPrestamoController {
         prestamoSeleccionado.setFechaDevolucion(fechaDevolucion.getValue());
 
         try {
-            // Obtener el idLibro del campo de texto y asegurarse de que es un número entero
-            int libroId = Integer.parseInt(idLibro.getText());
-            prestamoSeleccionado.setIdLibro(libroId); // Usar el idLibro en lugar del nombre del libro
+            // Obtener el titulo del campo de texto y asegurarse de que es un número entero
+            String libroId = (titulo.getText());
+            prestamoSeleccionado.settitulo(libroId); // Usar el titulo en lugar del nombre del libro
 
             // Llamar al modelo para actualizar el préstamo
             prestamoModelo.editarPrestamo(prestamoSeleccionado);

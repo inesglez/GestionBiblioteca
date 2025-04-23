@@ -16,7 +16,7 @@ public class PrestamoUtil {
                     prestamoVO.getDni(), // Cambiado de getDniUsuario() a getDni()
                     prestamoVO.getFechaPrestamo(),
                     prestamoVO.getFechaDevolucion(),
-                    prestamoVO.getIdLibro()  // Usamos el idLibro en lugar de libroPrestado
+                    prestamoVO.gettitulo()  // Usamos el titulo en lugar de libroPrestado
             ));
         }
         return prestamosModelo;
@@ -30,7 +30,7 @@ public class PrestamoUtil {
                     prestamoModelo.getIdPrestamo(),
                     prestamoModelo.getFechaPrestamo(),
                     prestamoModelo.getFechaDevolucion(),
-                    prestamoModelo.getIdLibro(),  // Usamos el idLibro en lugar de libro
+                    prestamoModelo.gettitulo(),  // Usamos el titulo en lugar de libro
                     prestamoModelo.getDni() // Cambiado de getDniUsuario() a getDni()
             ));
         }
@@ -43,7 +43,7 @@ public class PrestamoUtil {
                 prestamoModelo.getIdPrestamo(),
                 prestamoModelo.getFechaPrestamo(),
                 prestamoModelo.getFechaDevolucion(),
-                prestamoModelo.getIdLibro(),  // Usamos el idLibro en lugar de libro
+                prestamoModelo.gettitulo(),  // Usamos el titulo en lugar de libro
                 prestamoModelo.getDni() // Cambiado de getDniUsuario() a getDni()
         );
     }
@@ -54,7 +54,7 @@ public class PrestamoUtil {
                 prestamoVO.getDni(), // Cambiado de getDniUsuario() a getDni()
                 prestamoVO.getFechaPrestamo(),
                 prestamoVO.getFechaDevolucion(),
-                prestamoVO.getIdLibro()  // Usamos el idLibro en lugar de libroPrestado
+                prestamoVO.gettitulo()  // Usamos el titulo en lugar de libroPrestado
         );
     }
 
