@@ -59,7 +59,7 @@
 
                                 <HBox spacing="10">
                                     <children>
-                                        <Button text="Editar" fx:id="botonEditarUsuario" onAction="#botonEditarUsuario" styleClass="button"/>
+                                        <Button text="Guardar" fx:id="botonEditarUsuario" onAction="#botonEditarUsuario" styleClass="button"/>
                                         <Button text="Eliminar" fx:id="botonEliminarUsuario" onAction="#botonEliminarUsuario" styleClass="button"/>
                                     </children>
                                 </HBox>

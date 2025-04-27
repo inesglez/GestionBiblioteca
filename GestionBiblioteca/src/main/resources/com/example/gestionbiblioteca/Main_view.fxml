@@ -92,6 +92,7 @@
         <ScrollPane fx:id="scrollPane" fitToWidth="true" styleClass="scroll-pane">
             <content>
                 <VBox fx:id="mainContent" spacing="10" styleClass="content-container">
+                    <Label text="Cargando contenido..." fx:id="loadingLabel"/>
                 </VBox>
             </content>
         </ScrollPane>
