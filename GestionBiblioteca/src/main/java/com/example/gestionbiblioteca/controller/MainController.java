@@ -1,6 +1,7 @@
 package com.example.gestionbiblioteca.controller;
 
 import com.example.gestionbiblioteca.Libro;
+import com.example.gestionbiblioteca.modelo.LibroModelo;
 import com.example.gestionbiblioteca.modelo.repository.impl.Conexion;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -10,10 +11,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
 import javafx.scene.image.Image;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.TilePane;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import javafx.stage.Stage;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -340,6 +338,15 @@ public class MainController {
             Label tituloLabel = new Label(libro.getTitulo());
             tituloLabel.setStyle("-fx-font-size: 14px; -fx-font-weight: bold; -fx-alignment: center;");
 
+            // Asignar el manejador de eventos de clic a la imagen
+            // Establecer el manejador de eventos de clic a la imagen
+            imageView.setOnMouseClicked(event -> {
+                // Mensaje para verificar que se hace clic en la portada
+                System.out.println("Portada clickeada: " + libro.getTitulo()); // Mensaje de depuración
+                abrirDetallesLibro(libro);  // Llamamos al método para abrir la ventana de detalles del libro
+            });
+
+
             // Añadir la portada y el título al VBox
             libroBox.getChildren().addAll(imageView, tituloLabel);
 
@@ -349,6 +356,57 @@ public class MainController {
 
         // Añadir el TilePane al VBox principal
         mainContent.getChildren().add(tilePane);
+    }
+
+    private void abrirDetallesLibro(Libro libro) {
+        try {
+            // Convertir el objeto Libro a un objeto LibroModelo
+            LibroModelo libroModelo = new LibroModelo(
+                    libro.getIdLibro(),
+                    libro.getTitulo(),
+                    libro.getAutor(),
+                    libro.getAnioPublicacion(),
+                    libro.getEditorial(),
+                    libro.isDisponible(),
+                    libro.getPortada()
+            );
+
+            // Cargar el FXML de la ventana de detalles
+
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/gestionbiblioteca/DetallesLibro.fxml"));
+            BorderPane root = loader.load();  // Si el FXML tiene BorderPane
+
+
+            // Obtener el controlador de la vista cargada
+            DetallesLibroController controller = loader.getController();
+
+            // Pasar el objeto libroModelo al controlador
+            controller.mostrarDetalles(libroModelo);
+
+            // Crear la escena y la ventana
+            Stage stage = new Stage();
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.setTitle("Detalles del Libro");
+
+            // Mostrar la ventana
+            stage.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+            // Mostrar mensaje de error si no se puede abrir la ventana de detalles
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText("No se pudo abrir la ventana de detalles del libro");
+            alert.showAndWait();
+        }
+    }
+    @FXML
+    private void ordenarLibrosAlfabeticamente() {
+        List<Libro> libros = obtenerLibrosDesdeBaseDeDatos();
+        libros.sort((libro1, libro2) -> libro1.getTitulo().compareToIgnoreCase(libro2.getTitulo()));  // Orden alfabético
+
+        // Mostrar los libros ordenados
+        mostrarLibrosEnVista(libros);
     }
 
 

@@ -7,6 +7,12 @@
     -fx-background-color: #34495E;
     -fx-padding: 10;
 }
+.button-order {
+    -fx-text-fill: WHITE;
+    -fx-border-radius: 5;
+    -fx-padding: 5 10;
+    -fx-background-color: #8E44AD; /* O puedes elegir otro color si prefieres */
+}
 
 .top-label {
     -fx-font-size: 18px;

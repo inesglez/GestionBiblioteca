@@ -1,37 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
 <?import javafx.geometry.*?>
 <?import java.lang.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane focusTraversable="true" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="com.example.gestionbiblioteca.controller.MainController"
-            styleClass="border-pane"
-            stylesheets="@styles/Main.css">
+<BorderPane focusTraversable="true" styleClass="border-pane" stylesheets="@styles/Main.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.gestionbiblioteca.controller.MainController">
 
     <top>
-        <VBox spacing="5" styleClass="top-vbox" style="-fx-background-color: #2D3E50;">
+        <VBox spacing="5" style="-fx-background-color: #2D3E50;" styleClass="top-vbox">
             <children>
                 <HBox spacing="10" styleClass="menu-hbox">
                     <children>
-                        <MenuButton text="Usuarios" styleClass="menu-button">
+                        <MenuButton styleClass="menu-button" text="Usuarios">
                             <items>
-                                <MenuItem fx:id="menuAgregarUsuario" text="Agregar Usuario" onAction="#agregarUsuario"/>
-                                <MenuItem fx:id="menuListarUsuarios" text="Listar Usuarios" onAction="#listarUsuarios"/>
+                                <MenuItem fx:id="menuAgregarUsuario" onAction="#agregarUsuario" text="Agregar Usuario" />
+                                <MenuItem fx:id="menuListarUsuarios" onAction="#listarUsuarios" text="Listar Usuarios" />
                             </items>
                         </MenuButton>
 
-                        <MenuButton text="Libros" styleClass="menu-button">
+                        <MenuButton styleClass="menu-button" text="Libros">
                             <items>
-                                <MenuItem fx:id="menuAgregarLibro" text="Agregar Libro" onAction="#agregarLibro"/>
-                                <MenuItem fx:id="menuListarLibros" text="Listar Libros" onAction="#listarLibros"/>
+                                <MenuItem fx:id="menuAgregarLibro" onAction="#agregarLibro" text="Agregar Libro" />
+                                <MenuItem fx:id="menuListarLibros" onAction="#listarLibros" text="Listar Libros" />
                             </items>
                         </MenuButton>
 
-                        <MenuButton text="Préstamos" styleClass="menu-button">
+                        <MenuButton styleClass="menu-button" text="Préstamos">
                             <items>
-                                <MenuItem fx:id="menuNuevoPrestamo" text="Nuevo Préstamo" onAction="#nuevoPrestamo"/>
-                                <MenuItem fx:id="menuHistorialPrestamos" text="Historial de Préstamos" onAction="#historialPrestamos"/>
+                                <MenuItem fx:id="menuNuevoPrestamo" onAction="#nuevoPrestamo" text="Nuevo Préstamo" />
+                                <MenuItem fx:id="menuHistorialPrestamos" onAction="#historialPrestamos" text="Historial de Préstamos" />
                             </items>
                         </MenuButton>
                     </children>
@@ -39,49 +37,56 @@
 
                 <HBox spacing="10" styleClass="top-hbox">
                     <children>
-                        <Label text="Gestión de Biblioteca" textFill="WHITE" HBox.hgrow="ALWAYS" styleClass="top-label">
+                        <Label styleClass="top-label" text="Gestión de Biblioteca" textFill="WHITE" HBox.hgrow="ALWAYS">
                             <HBox.margin>
                                 <Insets left="10.0" top="15.0" />
                             </HBox.margin>
                         </Label>
 
-                        <Button fx:id="btnAgregarUsuario" onAction="#agregarUsuario" text="Añadir Usuario" styleClass="button-add">
+                        <Button fx:id="btnAgregarUsuario" onAction="#agregarUsuario" styleClass="button-add" text="Añadir Usuario">
                             <HBox.margin>
                                 <Insets top="15.0" />
                             </HBox.margin>
                         </Button>
 
-                        <Button fx:id="btnAgregarLibro" onAction="#agregarLibro" text="Añadir Libro" styleClass="button-add">
+                        <Button fx:id="btnAgregarLibro" onAction="#agregarLibro" styleClass="button-add" text="Añadir Libro">
                             <HBox.margin>
                                 <Insets top="15.0" />
                             </HBox.margin>
                         </Button>
 
-                        <Button fx:id="btnNuevoPrestamo" onAction="#nuevoPrestamo" text="Nuevo Préstamo" styleClass="button-add">
+                        <Button fx:id="btnNuevoPrestamo" onAction="#nuevoPrestamo" styleClass="button-add" text="Nuevo Préstamo">
                             <HBox.margin>
                                 <Insets top="15.0" />
                             </HBox.margin>
                         </Button>
 
-                        <Button fx:id="btnVerGrafico" onAction="#mostrarGrafico" text="Ver Gráfico" styleClass="button-add">
+                        <Button fx:id="btnVerGrafico" onAction="#mostrarGrafico" styleClass="button-add" text="Ver Gráfico">
                             <HBox.margin>
                                 <Insets top="15.0" />
                             </HBox.margin>
                         </Button>
-
 
                         <Region HBox.hgrow="ALWAYS" />
+
+                        <!-- Botón de Ordenar por Alfabeto -->
+                        <Button fx:id="btnOrdenarAlfabeticamente" onAction="#ordenarLibrosAlfabeticamente" styleClass="button-order" text="Ordenar A-Z">
+                            <HBox.margin>
+                                <Insets top="15.0" />
+                            </HBox.margin>
+                        </Button>
 
                         <TextField fx:id="searchField" promptText="Buscar libro..." styleClass="search-field">
                             <HBox.margin>
                                 <Insets top="15.0" />
                             </HBox.margin>
                         </TextField>
-                        <Button fx:id="searchButton" onAction="#buscar" text="Buscar" styleClass="button-search">
+                        <Button fx:id="searchButton" onAction="#buscar" styleClass="button-search" text="Buscar">
                             <HBox.margin>
                                 <Insets right="10.0" top="15.0" />
                             </HBox.margin>
                         </Button>
+
                     </children>
                 </HBox>
             </children>
@@ -92,7 +97,9 @@
         <ScrollPane fx:id="scrollPane" fitToWidth="true" styleClass="scroll-pane">
             <content>
                 <VBox fx:id="mainContent" spacing="10" styleClass="content-container">
-                    <Label text="Cargando contenido..." fx:id="loadingLabel"/>
+                   <children>
+                       <Label fx:id="loadingLabel" text="Cargando contenido..." />
+                   </children>
                 </VBox>
             </content>
         </ScrollPane>
