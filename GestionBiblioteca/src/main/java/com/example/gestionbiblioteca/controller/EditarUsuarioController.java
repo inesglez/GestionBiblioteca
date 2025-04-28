@@ -37,40 +37,57 @@ public class EditarUsuarioController {
         ponerApellido.setText(usuario.getApellidos());
         ponerDireccion.setText(usuario.getDireccion());
         ponerLocalidad.setText(usuario.getLocalidad());
+
+        // El campo ID no debería poder modificarse
+        ponerId.setDisable(true);
     }
 
     @FXML
     private void botonOk() {
-        if (ponerId.getText().isEmpty() || ponerNombre.getText().isEmpty() || ponerApellido.getText().isEmpty() || ponerDireccion.getText().isEmpty() || ponerLocalidad.getText().isEmpty()) {
-            mostrarAlerta("Error", "Todos los campos son obligatorios.");
+        if (ponerNombre.getText().isEmpty() || ponerApellido.getText().isEmpty()
+                || ponerDireccion.getText().isEmpty() || ponerLocalidad.getText().isEmpty()) {
+            mostrarAlerta(Alert.AlertType.ERROR, "Error", "Todos los campos son obligatorios.");
             return;
         }
 
-        // Actualizar los datos del usuario
-        usuario.setDni(ponerId.getText());
+        // Actualizar los datos
         usuario.setNombre(ponerNombre.getText());
         usuario.setApellidos(ponerApellido.getText());
         usuario.setDireccion(ponerDireccion.getText());
         usuario.setLocalidad(ponerLocalidad.getText());
 
-        // Realizar la edición en la base de datos
         try {
             usuarioRepository.editUsuario(usuario);
-        } catch (Exception e) {
-            mostrarAlerta("Error", "No se pudo actualizar el usuario.");
-        }
 
-        botonConfirmado = true;
-        ventana.close();
+            // MOSTRAR ALERTA Y NO CERRAR INSTANTÁNEAMENTE
+            Alert alertaExito = new Alert(Alert.AlertType.INFORMATION);
+            alertaExito.setTitle("Éxito");
+            alertaExito.setHeaderText(null);
+            alertaExito.setContentText("Usuario editado con éxito.");
+
+            // Mostrar el Alert de manera NO bloqueante
+            alertaExito.show();
+
+            // **USAR EVENTO** cuando el usuario cierre la alerta
+            alertaExito.setOnHidden(event -> {
+                botonConfirmado = true;
+                ventana.close(); // recién ahí cerramos
+            });
+
+        } catch (Exception e) {
+            mostrarAlerta(Alert.AlertType.ERROR, "Error", "No se pudo actualizar el usuario.");
+        }
     }
+
 
     @FXML
     private void botonCancelar() {
         ventana.close();
     }
 
-    private void mostrarAlerta(String titulo, String mensaje) {
-        Alert alerta = new Alert(Alert.AlertType.ERROR);
+    // Mejorado para aceptar el tipo de alerta
+    private void mostrarAlerta(Alert.AlertType tipo, String titulo, String mensaje) {
+        Alert alerta = new Alert(tipo);
         alerta.setTitle(titulo);
         alerta.setHeaderText(null);
         alerta.setContentText(mensaje);

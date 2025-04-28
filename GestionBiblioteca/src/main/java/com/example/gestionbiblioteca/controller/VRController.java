@@ -15,6 +15,7 @@ import javafx.scene.control.*;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.List;
 
 public class VRController {
@@ -40,6 +41,15 @@ public class VRController {
 
     public void setVentana(Stage ventana) {
         this.ventana = ventana;
+    }
+    private void limpiarCampos() {
+        // Limpiar los campos de texto
+        libroPrestado.clear();
+        dni.clear();
+
+        // Limpiar las fechas (si es necesario)
+        fechaPrestamo.setValue(null);
+        fechaDevolucion.setValue(null);
     }
 
     @FXML
@@ -89,24 +99,55 @@ public class VRController {
 
     @FXML
     private void botonEditarPrestamo() {
-        PrestamoModelo seleccionado = tablaPrestamos.getSelectionModel().getSelectedItem();
-        if (seleccionado != null) {
-            try {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/gestionbiblioteca/view/editarPrestamo.fxml"));
-                Parent root = loader.load();
-                EditarPrestamoController controller = loader.getController();
-                controller.cargarPrestamo(seleccionado);
-                Stage stage = new Stage();
-                stage.setScene(new Scene(root));
-                stage.setTitle("Editar Préstamo");
-                stage.show();
-            } catch (IOException e) {
-                mostrarAlerta("Error", "No se pudo abrir la ventana de editar préstamo: " + e.getMessage());
-            }
-        } else {
-            mostrarAlerta("Error", "Seleccione un préstamo para editar.");
+        // Verificar si un préstamo ha sido seleccionado en la tabla
+        PrestamoModelo prestamoSeleccionado = tablaPrestamos.getSelectionModel().getSelectedItem();
+        if (prestamoSeleccionado == null) {
+            mostrarAlerta("Error", "Debe seleccionar un préstamo para editar.");
+            return;
+        }
+
+        // Obtener los datos del formulario
+        String titulo = libroPrestado.getText();
+        String dniUsuario = dni.getText();
+
+        // Convertir las fechas de String a LocalDate
+        LocalDate fechaPrestamoLocalDate = fechaPrestamo.getValue();
+        LocalDate fechaDevolucionLocalDate = fechaDevolucion.getValue();
+
+        // Validar que los campos no estén vacíos
+        if (titulo.isEmpty() || dniUsuario.isEmpty() || fechaPrestamoLocalDate == null || fechaDevolucionLocalDate == null) {
+            mostrarAlerta("Error", "Por favor, complete todos los campos.");
+            return;
+        }
+
+        try {
+            // Crear el objeto PrestamoVO con los datos editados
+            // Suponiendo que el idPrestamo lo obtenemos del préstamo seleccionado
+            PrestamoVO prestamoEditado = new PrestamoVO(
+                    prestamoSeleccionado.getIdPrestamo(),  // Usamos el ID del préstamo seleccionado
+                    fechaPrestamoLocalDate,
+                    fechaDevolucionLocalDate,
+                    titulo,
+                    dniUsuario
+            );
+
+            // Actualizar el préstamo en el repositorio
+            prestamoRepository.editPrestamo(prestamoEditado);
+
+            // Actualizar la lista de préstamos y refrescar la tabla
+            cargarDatosPrestamos();
+
+            // Limpiar los campos de entrada
+            limpiarCampos();
+
+            // Mostrar alerta de éxito
+            mostrarAlerta("Éxito", "Préstamo editado con éxito.");
+
+        } catch (Exception e) {
+            mostrarAlerta("Error", "No se pudo editar el préstamo.");
         }
     }
+
 
     @FXML
     private void botonEliminarPrestamo() {

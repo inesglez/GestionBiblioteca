@@ -58,11 +58,13 @@ public class LibroController {
 
     @FXML
     public void initialize() {
+        // Hacer que el campo de ID no sea editable
+        ponerId.setEditable(false); // <--- Esto bloquea la edición del campo, pero lo deja visible
+
         // Inicializar las columnas de la tabla
         columnaTitulo.setCellValueFactory(cellData -> cellData.getValue().tituloProperty());
         columnaAutor.setCellValueFactory(cellData -> cellData.getValue().autorProperty());
         columnaAnio.setCellValueFactory(cellData -> cellData.getValue().anioPublicacionProperty().asObject());
-
 
         // Cargar los libros
         cargarLibros();
@@ -147,10 +149,15 @@ public class LibroController {
             // Limpiar los campos de entrada
             limpiarCampos();
 
+            // Mostrar alerta de éxito (ahora con ALERT tipo INFORMATION)
+            mostrarAlerta("Éxito", "Libro editado con éxito.");
+
         } catch (Exception e) {
             mostrarAlerta("Error", "No se pudo editar el libro.");
         }
     }
+
+
     @FXML
     private void botonVerDetalles() {
         // Verificar si un libro ha sido seleccionado en la tabla
@@ -184,6 +191,7 @@ public class LibroController {
             e.printStackTrace();
         }
     }
+
     @FXML
     private void botonEliminarLibro() {
         // Verificar si un libro ha sido seleccionado en la tabla
@@ -214,7 +222,9 @@ public class LibroController {
     }
 
     private void mostrarAlerta(String titulo, String mensaje) {
-        Alert alerta = new Alert(Alert.AlertType.ERROR);
+        // Si el título es "Éxito", cambiar el tipo de alerta a INFORMATION
+        Alert.AlertType tipoAlerta = titulo.equals("Éxito") ? Alert.AlertType.INFORMATION : Alert.AlertType.ERROR;
+        Alert alerta = new Alert(tipoAlerta);
         alerta.setTitle(titulo);
         alerta.setHeaderText(null);
         alerta.setContentText(mensaje);

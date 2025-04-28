@@ -135,6 +135,9 @@ public class VPController {
             // Limpiar los campos de entrada
             limpiarCampos();
 
+            // Mostrar alerta de éxito (ahora con ALERT tipo INFORMATION)
+            mostrarAlerta("Éxito", "Usuario editado con éxito.");
+
         } catch (Exception e) {
             mostrarAlerta("Error", "No se pudo editar el usuario.");
         }
@@ -163,6 +166,9 @@ public class VPController {
                 // Eliminar el usuario de la lista y refrescar la tabla
                 listaUsuarios.remove(usuarioSeleccionado);
 
+                // Mostrar alerta de éxito después de eliminar
+                mostrarAlerta("Éxito", "Usuario eliminado con éxito.");
+
             } catch (Exception e) {
                 mostrarAlerta("Error", "No se pudo eliminar el usuario.");
             }
@@ -170,12 +176,15 @@ public class VPController {
     }
 
     private void mostrarAlerta(String titulo, String mensaje) {
-        Alert alerta = new Alert(Alert.AlertType.ERROR);
+        // Si el título es "Éxito", cambiar a ALERT tipo INFORMATION
+        Alert.AlertType tipoAlerta = titulo.equals("Éxito") ? Alert.AlertType.INFORMATION : Alert.AlertType.ERROR;
+        Alert alerta = new Alert(tipoAlerta);
         alerta.setTitle(titulo);
         alerta.setHeaderText(null);
         alerta.setContentText(mensaje);
         alerta.showAndWait();
     }
+
 
     private void limpiarCampos() {
         // Limpiar los campos de entrada

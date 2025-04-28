@@ -42,6 +42,7 @@ public class PrestamoModelo {
     }
 
 
+
     public int getIdPrestamo() {
         return idPrestamo.get();
     }

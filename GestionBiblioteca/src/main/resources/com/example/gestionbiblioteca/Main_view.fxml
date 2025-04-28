@@ -72,7 +72,7 @@
 
                         <Region HBox.hgrow="ALWAYS" />
 
-                        <TextField fx:id="searchField" promptText="Buscar usuario o libro..." styleClass="search-field">
+                        <TextField fx:id="searchField" promptText="Buscar libro..." styleClass="search-field">
                             <HBox.margin>
                                 <Insets top="15.0" />
                             </HBox.margin>
